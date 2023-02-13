@@ -10,6 +10,8 @@ import '../common_widgets/button.dart';
 import '../common_widgets/button2.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../common_widgets/profile_options.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -81,7 +83,7 @@ class ProfileScreen extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   color: Color(0xff335EF7),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 margin: EdgeInsets.all(10),
                 width: context.width * .8,
@@ -118,6 +120,37 @@ class ProfileScreen extends StatelessWidget {
                       )
                     ]),
               ),
+              20.heightBox,
+              Profile_option(
+                bodyText: "Edit Profile",
+                usedIcon: Icons.person_2_sharp,
+              ),
+              10.heightBox,
+              Profile_option(
+                bodyText: "Notification",
+                usedIcon: Icons.notifications,
+              ),
+              10.heightBox,
+              Profile_option(
+                bodyText: "My Rents and Lends",
+                usedIcon: Icons.access_alarm_sharp,
+              ),
+              10.heightBox,
+              Profile_option(
+                bodyText: "Privacy Policy",
+                usedIcon: Icons.lock_person_sharp,
+              ),
+              10.heightBox,
+              Profile_option(
+                bodyText: "Help Center",
+                usedIcon: Icons.help_center,
+              ),
+              10.heightBox,
+              Profile_option(
+                bodyText: "Logout",
+                usedIcon: Icons.exit_to_app,
+              ),
+              10.heightBox,
             ],
           ),
         ),
