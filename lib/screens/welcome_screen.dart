@@ -7,6 +7,7 @@ import 'package:vaara_app/common_widgets/app_logo.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../common_widgets/button.dart';
+import '../common_widgets/button2.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -33,8 +34,16 @@ class WelcomeScreen extends StatelessWidget {
               10.heightBox,
               "Rent everything".text.color(Colors.blueGrey).size(20).make(),
               "near you...".text.color(Colors.blueGrey).size(20).make(),
-              40.heightBox,
-              MyButton().box.width(context.width - 70).roundedFull.make(),
+              100.heightBox,
+              MyButton(
+                name: 'Sign up',
+                width: context.width - 70,
+              ),
+              20.heightBox,
+              MyButton2(
+                name: 'Sign in',
+                width: context.width - 70,
+              )
             ],
           ),
         ),

@@ -4,17 +4,18 @@ import 'package:velocity_x/velocity_x.dart';
 String p = 'Poppins';
 const purple1 = Color(0xff9F1F63);
 
-Widget MyButton({double? height, double? width, String? name}) {
+Widget MyButton2({double? height, double? width, String? name}) {
   height ??= 45;
   width ??= 20.0;
 
   return ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: purple1,
+            backgroundColor: Colors.white,
+            foregroundColor: purple1,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25),
+              side: const BorderSide(width: .5),
             ),
-            side: const BorderSide(width: .5),
           ),
           onPressed: () {},
           child: name!.text.fontFamily(p).make())
