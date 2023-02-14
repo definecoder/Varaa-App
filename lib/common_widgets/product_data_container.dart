@@ -7,9 +7,22 @@ import 'package:flutter/material.dart';
 import 'circuler_image.dart';
 
 class ProductData extends StatelessWidget {
-  bool isLend = true;
+  final bool isLend;
+  final String title;
+  final String location;
+  final String frequency;
+  final String status;
+  final String imgLocation;
+  final String price;
 
-  ProductData({isLend = true});
+  ProductData(
+      {required this.isLend,
+      required this.frequency,
+      required this.location,
+      required this.status,
+      required this.title,
+      required this.imgLocation,
+      required this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +43,7 @@ class ProductData extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: Image(
-                    image: AssetImage("./assets/tent_nature.png"),
+                    image: AssetImage(imgLocation),
                     width: context.width * 0.33,
                     height: context.width * 0.33,
                     fit: BoxFit.fill,
@@ -51,18 +64,18 @@ class ProductData extends StatelessWidget {
                               color: Color.fromARGB(148, 243, 199, 239),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8))),
-                          child: "Pending".text.size(13).make(),
+                          child: status.text.size(13).make(),
                         ),
                         Expanded(child: Container()),
                         Container(
                           padding: EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                              color: isLend == false
+                              color: isLend == true
                                   ? Color.fromARGB(255, 246, 1, 1)
                                   : Color.fromARGB(255, 1, 166, 37),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8))),
-                          child: "RENT"
+                          child: (isLend == true ? "LEND" : "RENT")
                               .text
                               .size(14)
                               .bold
@@ -72,15 +85,19 @@ class ProductData extends StatelessWidget {
                         5.widthBox,
                       ],
                     ),
-                    "Veloce Outrage 601".text.bold.size(19).make(),
+                    title.text.bold.size(19).make(),
                     Row(
                       children: [
-                        Icon(Icons.location_on),
+                        Icon(Icons.location_on, size: 17),
                         1.widthBox,
-                        "Sylhet".text.size(15).make(),
+                        location.text.size(14).make(),
                         Expanded(child: Container()),
-                        "৳ 300 ".text.size(15).color(purple1).make(),
-                        "per day".text.size(15).make(),
+                        ("৳ " + price + " ")
+                            .text
+                            .size(14)
+                            .color(purple1)
+                            .make(),
+                        ("per " + frequency).text.size(14).make(),
                         5.widthBox,
                       ],
                     )
