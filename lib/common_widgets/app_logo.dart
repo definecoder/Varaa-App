@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:vaara_app/consts/consts.dart';
 
 Widget appLogoWidget(double height, double width) {
-  return Image.asset('./assets/appLogo.png')
+  return Image.asset(applogo)
       .box
       .color(Colors.white)
       .size(height, width)
