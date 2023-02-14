@@ -18,10 +18,11 @@ Widget MyButton(
             side: const BorderSide(width: .5),
           ),
           onPressed: () {
-            if (whenPressed != null)
+            if (whenPressed != null) {
               whenPressed();
-            else
+            } else {
               () {};
+            }
           },
           child: name!.text.fontFamily(p).make())
       .box

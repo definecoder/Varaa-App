@@ -1,16 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:vaara_app/consts/consts.dart';
 
-Widget CustomTextField() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      'Email'.text.make(),
-      TextFormField(
-        decoration: const InputDecoration(
-          hintText: 'Enter your email',
+Widget CustomTextField({String? title, String? hint}) {
+  return Container(
+    padding: const EdgeInsets.all(10),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        title!.text.make(),
+        TextFormField(
+          decoration: InputDecoration(
+            hintStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+            hintText: hint,
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
