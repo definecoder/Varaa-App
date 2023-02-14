@@ -2,15 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
-import 'package:vaara_app/screens/post_new_product_2.dart';
+import 'package:vaara_app/screens/profile_screen.dart';
 import '../common_widgets/button.dart';
 
 import '../common_widgets/button_next.dart';
 import '../common_widgets/custom_textfield.dart';
 import '../consts/consts.dart';
+import './profile_screen.dart';
 
-class PostNewProduct extends StatelessWidget {
-  PostNewProduct();
+class PostNewProduct2 extends StatelessWidget {
+  PostNewProduct2();
 
   @override
   Widget build(BuildContext context) {
@@ -44,34 +45,31 @@ class PostNewProduct extends StatelessWidget {
                 20.heightBox,
                 Container(
                   width: double.infinity,
-                  height: context.height * 0.42,
+                  height: context.height * 0.62,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       CustomTextField(
-                          title: 'Product Name', hint: 'Add product name'),
+                          title: 'Product Rent', hint: 'Add product rent'),
                       CustomTextField(
-                          title: 'Product Condition',
-                          hint: 'Choose product condition'),
+                          title: 'Rent Frequency',
+                          hint: 'Choose rent frequency'),
                       CustomTextField(
-                          title: 'Description',
-                          hint: 'Enter product details',
+                          title: 'Address',
+                          hint: 'Enter Product Address',
                           isBig: true),
+                      CustomTextField(title: 'City', hint: 'Choose city'),
                     ],
                   ).box.rounded.padding(EdgeInsets.all(19)).make(),
                 ),
-                MyButton(
-                    height: 30,
-                    width: context.width * 0.36,
-                    name: "Upload image"),
                 Expanded(child: Container()),
                 Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                   NextButton(
                       height: 40,
-                      width: 95,
-                      name: "N E X T",
+                      width: 135,
+                      name: "POST RENT",
                       whenPressed: () {
-                        Get.to(PostNewProduct2());
+                        Get.to(ProfileScreen());
                       }),
                   20.widthBox
                 ]),

@@ -28,16 +28,16 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                5.heightBox,
+                15.heightBox,
                 Row(
                   children: [
-                    10.widthBox,
-                    CupertinoNavigationBarBackButton(
+                    30.widthBox,
+                    /*CupertinoNavigationBarBackButton(
                       color: Color(0xff9F1F63),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                    ),
+                    ),*/
                     /*Transform.scale(
                       scale: 1.5,
                       child: IconButton(
