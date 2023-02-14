@@ -2,6 +2,7 @@ import 'package:vaara_app/common_widgets/app_logo.dart';
 import 'package:vaara_app/common_widgets/bg_widget.dart';
 import 'package:vaara_app/common_widgets/custom_textfield.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:vaara_app/screens/login_screen.dart';
 
 import '../common_widgets/button.dart';
 
@@ -53,9 +54,11 @@ class _FinishSignupState extends State<FinishSignup> {
                 ).box.rounded.padding(EdgeInsets.all(19)).make(),
                 40.heightBox,
                 MyButton(
-                  name: 'Finish Sign up',
-                  width: context.width - 70,
-                )
+                    name: 'Finish Sign up',
+                    width: context.width - 70,
+                    whenPressed: () {
+                      Get.to(() => LoginScreen());
+                    })
               ],
             ),
           ),
