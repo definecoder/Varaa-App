@@ -1,0 +1,10 @@
+floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          elevation: 5,
+          backgroundColor: Color(0xff9F1F63),
+          child: Icon(Icons.add, color: Colors.white),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomBar(
+          curScene: 4, // 1 = home, 2 = my rents, 3 = notifications, 4 = profile
+        ),
