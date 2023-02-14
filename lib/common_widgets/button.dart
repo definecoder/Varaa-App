@@ -4,7 +4,8 @@ import 'package:velocity_x/velocity_x.dart';
 String p = 'Poppins';
 const purple1 = Color(0xff9F1F63);
 
-Widget MyButton({onPress, double? height, double? width, String? name}) {
+Widget MyButton(
+    {double? height, double? width, String? name, Function? whenPressed}) {
   height ??= 45;
   width ??= 20.0;
 
@@ -16,7 +17,12 @@ Widget MyButton({onPress, double? height, double? width, String? name}) {
             ),
             side: const BorderSide(width: .5),
           ),
-          onPressed: onPress,
+          onPressed: () {
+            if (whenPressed != null)
+              whenPressed();
+            else
+              () {};
+          },
           child: name!.text.fontFamily(p).make())
       .box
       .height(height)

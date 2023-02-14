@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './screens/welcome_screen.dart';
+import 'package:vaara_app/screens/welcome_screen.dart';
 import 'package:get/get.dart';
 
 void main() {
