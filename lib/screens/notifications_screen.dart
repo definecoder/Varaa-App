@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:vaara_app/common_widgets/single_notification.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../common_widgets/BottomBar.dart';
@@ -27,7 +28,7 @@ class NotificationScreen extends StatelessWidget {
               Expanded(
                 child: Container(child: 10.heightBox),
               ),
-              Icon(
+              const Icon(
                 Icons.notifications,
                 color: Color(0xff9F1F63),
                 size: 40,
@@ -35,6 +36,13 @@ class NotificationScreen extends StatelessWidget {
               30.widthBox,
             ],
           ),
+          20.heightBox,
+          SingleNotification(),
+          SingleNotification(),
+          SingleNotification(),
+          SingleNotification(),
+          SingleNotification(),
+          SingleNotification(),
         ]),
       ),
       floatingActionButton: FloatingActionButton(
