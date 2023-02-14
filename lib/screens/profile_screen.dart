@@ -123,7 +123,7 @@ class ProfileScreen extends StatelessWidget {
               20.heightBox,
               Profile_option(
                 bodyText: "Edit Profile",
-                usedIcon: Icons.person_2_sharp,
+                usedIcon: Icons.person_rounded,
               ),
               10.heightBox,
               Profile_option(

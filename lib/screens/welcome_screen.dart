@@ -9,6 +9,7 @@ import 'package:velocity_x/velocity_x.dart';
 import '../common_widgets/button.dart';
 import '../common_widgets/button2.dart';
 import 'package:velocity_x/velocity_x.dart';
+import './signup_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -39,6 +40,9 @@ class WelcomeScreen extends StatelessWidget {
               MyButton(
                 name: 'Sign up',
                 width: context.width - 70,
+                whenPressed: () {
+                  Get.to(() => const SignUpScreen());
+                },
               ),
               20.heightBox,
               MyButton2(
