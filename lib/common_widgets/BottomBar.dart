@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:vaara_app/screens/notifications_screen.dart';
 import 'package:vaara_app/screens/profile_screen.dart';
 import "package:velocity_x/velocity_x.dart";
 import 'package:get/get.dart';
@@ -39,7 +40,9 @@ class BottomBar extends StatelessWidget {
             tooltip: 'Notifications',
             icon: const Icon(Icons.notifications),
             color: curScene == 3 ? Colors.lime : Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              if (curScene != 3) Get.to(NotificationScreen());
+            },
           ),
           IconButton(
             tooltip: 'My Profile',
