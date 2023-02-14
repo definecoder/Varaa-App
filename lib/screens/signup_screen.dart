@@ -6,8 +6,10 @@ import 'package:vaara_app/common_widgets/bg_widget.dart';
 import 'package:get/get.dart';
 import 'package:vaara_app/common_widgets/button.dart';
 import 'package:vaara_app/common_widgets/custom_textfield.dart';
+import 'package:vaara_app/screens/finish_signup_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:vaara_app/consts/consts.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -75,7 +77,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               MyButton(
                 name: 'Create Account',
-                whenPressed: () {},
+                whenPressed: () {
+                  Get.to(() => const FinishSignup());
+                },
                 width: context.width - 70,
               ),
               Row(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:vaara_app/consts/consts.dart';
 
 String p = 'Poppins';
-const purple1 = Color(0xff9F1F63);
 
 Widget MyButton(
     {double? height, double? width, String? name, Function? whenPressed}) {
