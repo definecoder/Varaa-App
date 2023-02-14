@@ -59,7 +59,7 @@ class WelcomeScreen extends StatelessWidget {
                 whenPressed: () {
                   Get.to(ProfileScreen());
                 },
-              )
+              ),
             ],
           ),
         ),

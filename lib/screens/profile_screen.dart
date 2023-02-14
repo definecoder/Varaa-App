@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:vaara_app/common_widgets/BottomBar.dart';
 import 'package:vaara_app/common_widgets/app_logo.dart';
 import 'package:vaara_app/common_widgets/circuler_image.dart';
+import 'package:vaara_app/screens/post_new_product.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../common_widgets/button.dart';
 import '../common_widgets/button2.dart';
@@ -27,16 +28,16 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                5.heightBox,
+                15.heightBox,
                 Row(
                   children: [
-                    10.widthBox,
-                    CupertinoNavigationBarBackButton(
+                    30.widthBox,
+                    /*CupertinoNavigationBarBackButton(
                       color: Color(0xff9F1F63),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                    ),
+                    ),*/
                     /*Transform.scale(
                       scale: 1.5,
                       child: IconButton(
@@ -165,7 +166,9 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(PostNewProduct());
+          },
           elevation: 5,
           backgroundColor: Color(0xff9F1F63),
           child: Icon(Icons.add, color: Colors.white),
