@@ -4,10 +4,12 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:vaara_app/common_widgets/app_logo.dart';
+import 'package:vaara_app/screens/profile_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../common_widgets/button.dart';
 import '../common_widgets/button2.dart';
 import 'package:velocity_x/velocity_x.dart';
+
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
@@ -42,6 +44,14 @@ class WelcomeScreen extends StatelessWidget {
               MyButton2(
                 name: 'Sign in',
                 width: context.width - 70,
+              ),
+              20.heightBox,
+              MyButton(
+                name: 'Mehraj',
+                width: context.width - 70,
+                whenPressed: () {
+                  Get.to(ProfileScreen());
+                },
               )
             ],
           ),
