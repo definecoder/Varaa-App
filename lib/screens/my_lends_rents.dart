@@ -1,7 +1,9 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
 import 'package:vaara_app/common_widgets/product_data_container.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:vaara_app/screens/post_new_product.dart';
 import '../consts/colors.dart';
 
 import '../common_widgets/BottomBar.dart';
@@ -63,7 +65,9 @@ class MyLendsRents extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.to(PostNewProduct());
+        },
         elevation: 5,
         backgroundColor: Color(0xff9F1F63),
         child: Icon(Icons.add, color: Colors.white),
