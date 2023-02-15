@@ -1,3 +1,4 @@
+import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -10,8 +11,21 @@ import '../common_widgets/custom_textfield.dart';
 import '../consts/consts.dart';
 import './profile_screen.dart';
 
-class PostNewProduct2 extends StatelessWidget {
+class PostNewProduct2 extends StatefulWidget {
   PostNewProduct2();
+
+  @override
+  State<PostNewProduct2> createState() => _PostNewProduct2State();
+}
+
+class _PostNewProduct2State extends State<PostNewProduct2> {
+  List<String> options = [
+    'Daily',
+    'Weekly',
+    'Monthly',
+    'Yearly',
+  ];
+  int tag2 = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +68,31 @@ class PostNewProduct2 extends StatelessWidget {
                       children: [
                         CustomTextField(
                             title: 'Product Rent', hint: 'Add product rent'),
-                        CustomTextField(
-                            title: 'Rent Frequency',
-                            hint: 'Choose rent frequency'),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                10.widthBox,
+                                "Choose rent frequency"
+                                    .text
+                                    .bold
+                                    .size(18)
+                                    .make(),
+                              ],
+                            ),
+                            5.heightBox,
+                            ChipsChoice.single(
+                              value: tag2,
+                              onChanged: (val) => setState(() => tag2 = val),
+                              choiceItems: C2Choice.listFrom(
+                                source: options,
+                                value: (i, v) => i,
+                                label: (i, v) => v,
+                              ),
+                            ),
+                          ],
+                        ),
                         CustomTextField(
                             title: 'Address',
                             hint: 'Enter Product Address',
