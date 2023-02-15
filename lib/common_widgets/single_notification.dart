@@ -14,7 +14,7 @@ class SingleNotification extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: context.height * 0.1,
-      margin: const EdgeInsets.all(5),
+      margin: const EdgeInsets.all(2),
       child: Card(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
@@ -22,14 +22,18 @@ class SingleNotification extends StatelessWidget {
           ),
         ),
         elevation: 5,
-        color: Colors.white,
-        child: Text(
-          notificationBody.toString(),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-              color: Color(0xff000000),
-              fontSize: 14,
-              fontWeight: FontWeight.w500),
+        color: Color(0xffD9D9D9),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            notificationBody.toString(),
+            textAlign: TextAlign.justify,
+            style: const TextStyle(
+                color: Color(0xff000000),
+                fontSize: 16,
+                fontFamily: "Poppins",
+                fontWeight: FontWeight.w500),
+          ),
         ),
       ),
     );
