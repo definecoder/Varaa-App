@@ -38,13 +38,40 @@ class NotificationScreen extends StatelessWidget {
               30.widthBox,
             ],
           ),
-          20.heightBox,
-          SingleNotification(notificationBody: "Welcome to Bangladesh"),
-          SingleNotification(notificationBody: "Welcome to Sylhet"),
-          SingleNotification(notificationBody: "Welcome to SUST"),
-          SingleNotification(notificationBody: "Welcome to IICT"),
-          SingleNotification(notificationBody: "Welcome to SWE"),
-          SingleNotification(notificationBody: "Welcome to Varaa App"),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(children: [
+                20.heightBox,
+                SingleNotification(
+                    notificationBody:
+                        "Your add “Camp Tent” got 2 rent requests! Review now before you miss out."),
+                SingleNotification(
+                    notificationBody:
+                        "Your add “Camp Tent” got 2 rent requests! Review now before you miss out."),
+                SingleNotification(
+                    notificationBody:
+                        "Your add “Camp Tent” got 2 rent requests! Review now before you miss out."),
+                SingleNotification(
+                    notificationBody:
+                        "Your add “Camp Tent” got 2 rent requests! Review now before you miss out."),
+                SingleNotification(
+                    notificationBody:
+                        "Your add “Camp Tent” got 2 rent requests! Review now before you miss out."),
+                SingleNotification(
+                    notificationBody:
+                        "Your add “Camp Tent” got 2 rent requests! Review now before you miss out."),
+                SingleNotification(
+                    notificationBody:
+                        "Your add “Camp Tent” got 2 rent requests! Review now before you miss out."),
+                SingleNotification(
+                    notificationBody:
+                        "Your add “Camp Tent” got 2 rent requests! Review now before you miss out."),
+                SingleNotification(
+                    notificationBody:
+                        "Your add “Camp Tent” got 2 rent requests! Review now before you miss out."),
+              ]),
+            ),
+          ),
         ]),
       ),
       floatingActionButton: FloatingActionButton(

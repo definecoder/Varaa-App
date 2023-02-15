@@ -1,3 +1,4 @@
+import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -9,8 +10,22 @@ import '../common_widgets/button_next.dart';
 import '../common_widgets/custom_textfield.dart';
 import '../consts/consts.dart';
 
-class PostNewProduct extends StatelessWidget {
-  PostNewProduct();
+class PostNewProduct extends StatefulWidget {
+  PostNewProduct() {}
+
+  @override
+  State<PostNewProduct> createState() => _PostNewProductState();
+}
+
+class _PostNewProductState extends State<PostNewProduct> {
+  List<String> options = [
+    'Excelent',
+    'Good',
+    'Okay',
+    'Bad',
+  ];
+  //List<int> tags = [1, 2, 3, 4];
+  int tag = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -47,15 +62,38 @@ class PostNewProduct extends StatelessWidget {
                   20.heightBox,
                   Container(
                     width: double.infinity,
-                    height: context.height * 0.42,
+                    height: context.height * 0.5,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomTextField(
                             title: 'Product Name', hint: 'Add product name'),
-                        CustomTextField(
-                            title: 'Product Condition',
-                            hint: 'Choose product condition'),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                10.widthBox,
+                                "Choose product condition"
+                                    .text
+                                    .bold
+                                    .size(18)
+                                    .make(),
+                              ],
+                            ),
+                            5.heightBox,
+                            ChipsChoice.single(
+                              value: tag,
+                              onChanged: (val) => setState(() => tag = val),
+                              choiceItems: C2Choice.listFrom(
+                                source: options,
+                                value: (i, v) => i,
+                                label: (i, v) => v,
+                              ),
+                            ),
+                          ],
+                        ),
                         CustomTextField(
                             title: 'Description',
                             hint: 'Enter product details',

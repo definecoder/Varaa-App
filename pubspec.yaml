@@ -34,6 +34,8 @@ dependencies:
   get: ^4.6.5
   velocity_x: ^3.6.0
   roundcheckbox: ^2.0.5
+  expandable_text: 2.3.0
+  chips_choice: ^3.0.0
 
 
   # The following adds the Cupertino Icons font to your application.

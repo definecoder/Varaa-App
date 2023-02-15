@@ -12,7 +12,7 @@ Widget CustomTextField(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        title!.text.bold.size(14).make(),
+        title!.text.bold.size(18).make(),
         Container(
           //color: Color.fromARGB(130, 212, 206, 206),
           child: TextFormField(
