@@ -14,8 +14,8 @@ class MyLendsRents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               20.heightBox,
@@ -52,6 +52,33 @@ class MyLendsRents extends StatelessWidget {
                 title: "Flutter Appertice Book original print",
                 imgLocation: "./assets/book_image_1.png",
                 price: 25.toString(),
+              ),
+              ProductData(
+                frequency: "year",
+                isLend: true,
+                location: "Cox-Bazar",
+                status: "Delivaring",
+                title: "Camping tent for 4 person",
+                imgLocation: "./assets/tent_nature.png",
+                price: 3000.toString(),
+              ),
+              ProductData(
+                frequency: "year",
+                isLend: true,
+                location: "Cox-Bazar",
+                status: "Delivaring",
+                title: "Camping tent for 4 person",
+                imgLocation: "./assets/tent_nature.png",
+                price: 3000.toString(),
+              ),
+              ProductData(
+                frequency: "year",
+                isLend: true,
+                location: "Cox-Bazar",
+                status: "Delivaring",
+                title: "Camping tent for 4 person",
+                imgLocation: "./assets/tent_nature.png",
+                price: 3000.toString(),
               ),
               ProductData(
                 frequency: "year",
