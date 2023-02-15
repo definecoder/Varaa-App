@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:vaara_app/common_widgets/Button_bold_big.dart';
 import 'package:vaara_app/common_widgets/button.dart';
 import 'package:vaara_app/common_widgets/button2.dart';
 import 'package:vaara_app/common_widgets/circuler_image.dart';
@@ -124,16 +125,167 @@ class ProductInfoScreen extends StatelessWidget {
               ),
             ]),
             Container(
-              padding: const EdgeInsets.all(20),
-              child: const ExpandableText(
-                "amar sonar bangla ami tomay valo bashi ki akash ki batash amar prane bajay bashi amar sonar bangla ami tomay valo bashi ki akash ki batash amar prane bajay bashi amar sonar bangla ami tomay valo bashi ki akash ki batash amar prane bajay bashi",
-                expandText: 'show more',
-                collapseText: 'show less',
-                style: TextStyle(fontFamily: "Popins", fontSize: 17),
-                maxLines: 3,
-                linkColor: purple1,
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
+              child: Row(
+                children: [
+                  Container(
+                    //color: Colors.grey,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: purple1, width: 3),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.location_on,
+                      size: 35,
+                      color: purple1,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    width: context.width * .7,
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        "Address".text.size(16).semiBold.make(),
+                        const ExpandableText(
+                          "148/D Hi Rise Garden view Khulsi Green H/S 148/D Hi Rise Garden view Khulsi Green H/S 148/D Hi Rise Garden view Khulsi Green H/S 148/D Hi Rise Garden view Khulsi Green H/S",
+                          expandText: 'show more',
+                          collapseText: 'show less',
+                          style: TextStyle(fontFamily: "Popins", fontSize: 14),
+                          maxLines: 2,
+                          linkColor: purple1,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            )
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            //color: Colors.grey,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: purple1, width: 3),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.question_mark_rounded,
+                              size: 35,
+                              color: purple1,
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Column(
+                              children: [
+                                "Product".text.size(16).semiBold.make(),
+                                "Condition".text.size(16).semiBold.make(),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                        alignment: Alignment.centerLeft,
+                        //color: purple1,
+                        child: "Excelent"
+                            .text
+                            .align(TextAlign.left)
+                            .color(Color.fromARGB(255, 40, 131, 43))
+                            .size(20)
+                            .fontWeight(FontWeight.w700)
+                            .make(),
+                      )
+                    ],
+                  ),
+                  Expanded(child: Container()),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                "Contact".text.size(16).semiBold.make(),
+                                "+8801913112522".text.size(16).make(),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            //color: Colors.grey,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: purple1, width: 3),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.phone,
+                              size: 35,
+                              color: purple1,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                        child: "Click to copy phone number".text.make(),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  "Product Description"
+                      .text
+                      .bold
+                      .color(purple1)
+                      .size(22)
+                      .make(),
+                  const ExpandableText(
+                    "This is SUN camp tent. This can save you from sun, rain and snow This is SUN camp tent. This can save you from sun, rain and snow This is SUN camp tent. This can save you from sun, rain and snow This is SUN camp tent. This can save you from sun, rain and snow This is SUN camp tent. This can save you from sun, rain and snow",
+                    expandText: 'show more',
+                    collapseText: 'show less',
+                    style: TextStyle(
+                        fontFamily: "Popins",
+                        fontSize: 17,
+                        color: Color.fromARGB(123, 0, 0, 0)),
+                    maxLines: 3,
+                    linkColor: purple1,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: BigButton(
+                  name: "PROCEED TO RENT",
+                  width: 250,
+                  height: 45,
+                  font_size: 22),
+            ),
           ],
         ),
       ),
