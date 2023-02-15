@@ -5,16 +5,18 @@ import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SingleNotification extends StatelessWidget {
-  const SingleNotification({super.key});
+  final String notificationBody;
+
+  SingleNotification({this.notificationBody = "Hello World"});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: context.height * 0.1,
-      margin: EdgeInsets.all(5),
-      child: const Card(
-        shape: RoundedRectangleBorder(
+      margin: const EdgeInsets.all(5),
+      child: Card(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10),
           ),
@@ -22,9 +24,9 @@ class SingleNotification extends StatelessWidget {
         elevation: 5,
         color: Colors.white,
         child: Text(
-          "Hello World",
+          notificationBody.toString(),
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
               color: Color(0xff000000),
               fontSize: 14,
               fontWeight: FontWeight.w500),

@@ -6,6 +6,8 @@ import 'package:vaara_app/screens/profile_screen.dart';
 import "package:velocity_x/velocity_x.dart";
 import 'package:get/get.dart';
 
+import '../screens/my_lends_rents.dart';
+
 class BottomBar extends StatelessWidget {
   int curScene;
 
@@ -32,7 +34,9 @@ class BottomBar extends StatelessWidget {
             tooltip: 'My Rents and lends',
             icon: const Icon(Icons.history),
             color: curScene == 2 ? Colors.lime : Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              if (curScene != 2) Get.to(MyLendsRents());
+            },
           ),
           20.widthBox,
           //const Spacer(),
