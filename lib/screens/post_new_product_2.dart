@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:vaara_app/screens/home_screen.dart';
 import 'package:vaara_app/screens/profile_screen.dart';
 import '../common_widgets/button.dart';
 
@@ -108,7 +109,7 @@ class _PostNewProduct2State extends State<PostNewProduct2> {
                         width: 135,
                         name: "POST RENT",
                         whenPressed: () {
-                          Get.to(ProfileScreen());
+                          Get.to(HomeScreen());
                         }),
                     20.widthBox
                   ]),

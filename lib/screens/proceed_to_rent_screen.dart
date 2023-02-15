@@ -6,6 +6,7 @@ import 'package:vaara_app/common_widgets/button.dart';
 import 'package:vaara_app/common_widgets/button2.dart';
 import 'package:vaara_app/common_widgets/circuler_image.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:vaara_app/screens/home_screen.dart';
 
 class ProceedRentScreen extends StatelessWidget {
   @override
@@ -136,6 +137,9 @@ class ProceedRentScreen extends StatelessWidget {
                   name: "Continue to Varaa",
                   height: 50,
                   width: context.width * 0.75,
+                  whenPressed: () {
+                    Get.to(HomeScreen());
+                  },
                 ),
               ),
             ],

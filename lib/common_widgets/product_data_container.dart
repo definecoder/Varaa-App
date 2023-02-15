@@ -35,7 +35,7 @@ class ProductData extends StatelessWidget {
       },
       child: Container(
         width: double.infinity,
-        height: .17 * context.height,
+        height: .18 * context.height,
         child: Card(
           child: Container(
             padding: EdgeInsets.all(15),
@@ -66,9 +66,9 @@ class ProductData extends StatelessWidget {
                       Row(
                         children: [
                           Container(
-                            padding: EdgeInsets.all(3),
+                            padding: EdgeInsets.all(4),
                             decoration: const BoxDecoration(
-                                color: Color.fromARGB(148, 243, 199, 239),
+                                color: Color.fromARGB(147, 232, 209, 230),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8))),
                             child: status.text.size(13).make(),
@@ -94,7 +94,7 @@ class ProductData extends StatelessWidget {
                           5.widthBox,
                         ],
                       ),
-                      title.text.bold.size(19).make(),
+                      title.text.fontWeight(FontWeight.w500).size(16).make(),
                       Row(
                         children: [
                           Icon(Icons.location_on, size: 17),
