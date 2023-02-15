@@ -5,3 +5,5 @@ export './images.dart';
 export './styles.dart';
 export 'package:velocity_x/velocity_x.dart';
 export 'package:get/get.dart';
+export 'package:vaara_app/screens/post_new_product.dart';
+export '../common_widgets/BottomBar.dart';

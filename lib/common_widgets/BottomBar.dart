@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:vaara_app/screens/home_screen.dart';
 import 'package:vaara_app/screens/notifications_screen.dart';
 import 'package:vaara_app/screens/profile_screen.dart';
 import "package:velocity_x/velocity_x.dart";
@@ -28,7 +29,9 @@ class BottomBar extends StatelessWidget {
             tooltip: 'Go to home',
             icon: const Icon(Icons.home),
             color: curScene == 1 ? Colors.lime : Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              if (curScene != 1) Get.to(() => HomeScreen());
+            },
           ),
           IconButton(
             tooltip: 'My Rents and lends',

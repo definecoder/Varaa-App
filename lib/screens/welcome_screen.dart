@@ -17,50 +17,54 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
+    return Scaffold(
+      body: Container(
+        width: context.width,
+        height: context.height,
         color: Colors.white,
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              100.heightBox,
-              appLogoWidget(200, 200),
-              50.heightBox,
-              "Welcome"
-                  .text
-                  .fontFamily('Poppins')
-                  .black
-                  .size(40)
-                  .fontWeight(FontWeight.bold)
-                  .make(),
-              10.heightBox,
-              "Rent everything".text.color(Colors.blueGrey).size(20).make(),
-              "near you...".text.color(Colors.blueGrey).size(20).make(),
-              100.heightBox,
-              MyButton(
-                name: 'Sign up',
-                width: context.width - 70,
-                whenPressed: () {
-                  Get.to(() => const SignUpScreen());
-                },
-              ),
-              20.heightBox,
-              MyButton2(
-                  name: 'Sign in',
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                100.heightBox,
+                appLogoWidget(200, 200),
+                50.heightBox,
+                "Welcome"
+                    .text
+                    .fontFamily('Poppins')
+                    .black
+                    .size(40)
+                    .fontWeight(FontWeight.bold)
+                    .make(),
+                10.heightBox,
+                "Rent everything".text.color(Colors.blueGrey).size(20).make(),
+                "near you...".text.color(Colors.blueGrey).size(20).make(),
+                100.heightBox,
+                MyButton(
+                  name: 'Sign up',
                   width: context.width - 70,
                   whenPressed: () {
-                    Get.to(() => LoginScreen());
-                  }),
-              20.heightBox,
-              MyButton(
-                name: 'Mehraj',
-                width: context.width - 70,
-                whenPressed: () {
-                  Get.to(ProfileScreen());
-                },
-              ),
-            ],
+                    Get.to(() => const SignUpScreen());
+                  },
+                ),
+                20.heightBox,
+                MyButton2(
+                    name: 'Sign in',
+                    width: context.width - 70,
+                    whenPressed: () {
+                      Get.to(() => LoginScreen());
+                    }),
+                20.heightBox,
+                MyButton(
+                  name: 'Mehraj',
+                  width: context.width - 70,
+                  whenPressed: () {
+                    Get.to(ProfileScreen());
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
