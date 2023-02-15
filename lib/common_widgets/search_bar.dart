@@ -20,9 +20,14 @@ class _SearchBarState extends State<SearchBar> {
       ),
       child: TextField(
         controller: _searchController,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           border: InputBorder.none,
-          suffixIcon: Icon(Icons.search, color: purple1),
+          suffixIcon: GestureDetector(
+            child: Icon(Icons.search, color: purple1),
+            onTap: () {
+              //print("hey");
+            },
+          ),
           hintText: 'Search...',
           hintStyle: TextStyle(fontFamily: poppins),
         ),

@@ -14,6 +14,7 @@ class ProductData extends StatelessWidget {
   final String status;
   final String imgLocation;
   final String price;
+  final bool isHome;
 
   ProductData(
       {required this.isLend,
@@ -22,7 +23,8 @@ class ProductData extends StatelessWidget {
       required this.status,
       required this.title,
       required this.imgLocation,
-      required this.price});
+      required this.price,
+      this.isHome = false});
 
   @override
   Widget build(BuildContext context) {
@@ -67,21 +69,23 @@ class ProductData extends StatelessWidget {
                           child: status.text.size(13).make(),
                         ),
                         Expanded(child: Container()),
-                        Container(
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              color: isLend == true
-                                  ? Color.fromARGB(255, 246, 1, 1)
-                                  : Color.fromARGB(255, 1, 166, 37),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8))),
-                          child: (isLend == true ? "LEND" : "RENT")
-                              .text
-                              .size(14)
-                              .bold
-                              .color(Colors.white)
-                              .make(),
-                        ),
+                        isHome == false
+                            ? Container(
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                    color: isLend == true
+                                        ? Color.fromARGB(255, 246, 1, 1)
+                                        : Color.fromARGB(255, 1, 166, 37),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8))),
+                                child: (isLend == true ? "LEND" : "RENT")
+                                    .text
+                                    .size(14)
+                                    .bold
+                                    .color(Colors.white)
+                                    .make(),
+                              )
+                            : Container(),
                         5.widthBox,
                       ],
                     ),
