@@ -7,6 +7,7 @@ import 'package:vaara_app/common_widgets/Button_bold_big.dart';
 import 'package:vaara_app/common_widgets/button.dart';
 import 'package:vaara_app/common_widgets/button2.dart';
 import 'package:vaara_app/common_widgets/circuler_image.dart';
+import 'package:vaara_app/screens/proceed_to_rent_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ProductInfoScreen extends StatelessWidget {
@@ -293,7 +294,10 @@ class ProductInfoScreen extends StatelessWidget {
                     name: "PROCEED TO RENT",
                     width: 250,
                     height: 45,
-                    font_size: 22),
+                    font_size: 22,
+                    whenPressed: () {
+                      Get.to(ProceedRentScreen());
+                    }),
               ),
             ],
           ),
