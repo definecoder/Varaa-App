@@ -13,6 +13,7 @@ Widget MyButton2(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,
             foregroundColor: purple1,
+            shadowColor: purple1,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25),
               side: const BorderSide(width: .5),
@@ -24,7 +25,7 @@ Widget MyButton2(
             else
               () {};
           },
-          child: name!.text.fontFamily(p).make())
+          child: name!.text.fontFamily(p).size(16).letterSpacing(0).make())
       .box
       .height(height)
       .width(width)
