@@ -62,11 +62,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ).box.rounded.padding(EdgeInsets.all(19)).make(),
                   30.heightBox,
                   MyButton(
-                      name: 'Login',
-                      width: context.width - 70,
-                      whenPressed: () {
-                        Get.to(HomeScreen());
-                      }),
+                    name: 'Login',
+                    width: context.width - 70,
+                    whenPressed: () {
+                      Get.to(() => HomeScreen());
+                    },
+                  ),
                   TextButton(
                       onPressed: () {},
                       child: const Text(

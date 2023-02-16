@@ -56,13 +56,6 @@ class WelcomeScreen extends StatelessWidget {
                       Get.to(() => LoginScreen());
                     }),
                 20.heightBox,
-                MyButton(
-                  name: 'Mehraj',
-                  width: context.width - 70,
-                  whenPressed: () {
-                    Get.to(ProfileScreen());
-                  },
-                ),
               ],
             ),
           ),
