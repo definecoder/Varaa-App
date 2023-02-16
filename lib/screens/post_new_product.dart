@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:vaara_app/common_widgets/image_preview.dart';
 import 'package:vaara_app/screens/post_new_product_2.dart';
 import '../common_widgets/button.dart';
 
@@ -18,6 +22,9 @@ class PostNewProduct extends StatefulWidget {
 }
 
 class _PostNewProductState extends State<PostNewProduct> {
+  ImagePicker productImagePicker = ImagePicker();
+  bool productImageUploaded = false;
+  XFile? productImage;
   List<String> options = [
     'Excelent',
     'Good',
@@ -102,10 +109,39 @@ class _PostNewProductState extends State<PostNewProduct> {
                     ).box.rounded.padding(EdgeInsets.all(19)).make(),
                   ),
                   MyButton(
-                      height: 30,
-                      width: context.width * 0.36,
-                      name: "Upload image"),
-                  Expanded(child: Container()),
+                    height: 30,
+                    width: context.width * 0.36,
+                    name: "Upload image",
+                    whenPressed: () async {
+                      productImage = await productImagePicker.pickImage(
+                          source: ImageSource.gallery);
+                      //print("hi");
+                      setState(() {
+                        if (productImage != null) productImageUploaded = true;
+                      });
+                    },
+                  ),
+                  productImageUploaded == true
+                      ? ImagePreview(
+                          height: 100,
+                          width: 100,
+                          image: Image.file(File(productImage!.path)))
+                      : Container(),
+                  productImageUploaded == true
+                      ? MyButton(
+                          height: 20,
+                          width: context.width * 0.33,
+                          name: "Cancel Image",
+                          whenPressed: () {
+                            setState(() {
+                              productImageUploaded = false;
+                              productImage = null;
+                            });
+                          })
+                      : Expanded(
+                          child: Container(),
+                        ),
+                  //Expanded(child: Container()),
                   Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                     NextButton(
                         height: 40,

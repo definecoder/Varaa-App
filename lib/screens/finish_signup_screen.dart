@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:vaara_app/common_widgets/app_logo.dart';
 import 'package:vaara_app/common_widgets/bg_widget.dart';
 import 'package:vaara_app/common_widgets/custom_textfield.dart';
@@ -14,36 +17,76 @@ class FinishSignup extends StatefulWidget {
 }
 
 class _FinishSignupState extends State<FinishSignup> {
+  ImagePicker profilePicturePicker = ImagePicker();
+  bool profilePictureUploaded = false;
+  XFile? profilePicture;
   @override
   Widget build(BuildContext context) {
     return BgWidget(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          iconTheme: IconThemeData(color: purple1),
-        ),
         body: SafeArea(
             child: SingleChildScrollView(
           child: Center(
             child: Column(
               children: [
-                appLogoWidget(150, 150),
+                10.heightBox,
+                Stack(
+                  children: [
+                    Center(
+                      child: appLogoWidget(150, 150),
+                    ),
+                    Row(
+                      children: [
+                        10.widthBox,
+                        IconButton(
+                          onPressed: () {
+                            context.pop();
+                          },
+                          icon: Icon(Icons.arrow_back_ios_rounded),
+                          color: purple1,
+                        )
+                      ],
+                    )
+                  ],
+                ),
                 10.heightBox,
                 "Finish Sign up".text.fontFamily(poppins).size(30).bold.make(),
                 20.heightBox,
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.add_a_photo),
-                  color: purple1,
-                )
-                    .box
-                    .roundedFull
-                    .size(100, 100)
-                    .border(color: purple1, width: 2)
-                    .make(),
-                10.heightBox,
-                "Upload Image".text.fontFamily(poppins).make(),
+                profilePictureUploaded == false
+                    ? IconButton(
+                        onPressed: () async {
+                          profilePicture = await profilePicturePicker.pickImage(
+                              source: ImageSource.gallery);
+                          setState(() {
+                            if (profilePicture != null)
+                              profilePictureUploaded = true;
+                          });
+                        },
+                        icon: const Icon(Icons.add_a_photo),
+                        color: purple1,
+                      )
+                        .box
+                        .roundedFull
+                        .size(100, 100)
+                        .border(color: purple1, width: 2)
+                        .make()
+                    : CircleAvatar(
+                        backgroundImage: FileImage(File(profilePicture!.path)),
+                        radius: context.height * 0.08,
+                      ),
+                15.heightBox,
+                profilePictureUploaded == false
+                    ? "Upload Image".text.fontFamily(poppins).make()
+                    : MyButton(
+                        height: 30,
+                        width: context.width * 0.33,
+                        name: "Cancel Image",
+                        whenPressed: () {
+                          setState(() {
+                            profilePictureUploaded = false;
+                            profilePicture = null;
+                          });
+                        }),
                 Column(
                   children: [
                     CustomTextField(
@@ -52,7 +95,7 @@ class _FinishSignupState extends State<FinishSignup> {
                         title: 'Phone Number', hint: 'Enter your phone number'),
                   ],
                 ).box.rounded.padding(EdgeInsets.all(19)).make(),
-                40.heightBox,
+                20.heightBox,
                 MyButton(
                     name: 'Finish Sign up',
                     width: context.width - 70,
