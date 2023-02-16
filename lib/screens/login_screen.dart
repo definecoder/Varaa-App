@@ -4,6 +4,7 @@ import 'package:vaara_app/common_widgets/bg_widget.dart';
 import 'package:vaara_app/common_widgets/button.dart';
 import 'package:vaara_app/common_widgets/custom_textfield.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:vaara_app/screens/home_screen.dart';
 
 import '../common_widgets/button3.dart';
 
@@ -63,7 +64,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   MyButton(
                       name: 'Login',
                       width: context.width - 70,
-                      whenPressed: () {}),
+                      whenPressed: () {
+                        Get.to(HomeScreen());
+                      }),
                   TextButton(
                       onPressed: () {},
                       child: const Text(
