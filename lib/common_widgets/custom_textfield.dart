@@ -7,7 +7,8 @@ Widget CustomTextField(
     String? hint,
     bool? isBig,
     BuildContext? context = null,
-    bool? isPass = false}) {
+    bool? isPass = false,
+    TextEditingController? textController}) {
   return Container(
     padding: const EdgeInsets.all(10),
     decoration: const BoxDecoration(
@@ -21,6 +22,7 @@ Widget CustomTextField(
           //color: Color.fromARGB(130, 212, 206, 206),
           child: TextFormField(
             //expands: true,
+            controller: textController,
             maxLines: isBig == true ? 5 : 1,
             minLines: isBig == true ? 3 : 1,
             keyboardType:
