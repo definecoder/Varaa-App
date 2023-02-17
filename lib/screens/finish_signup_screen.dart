@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vaara_app/common_widgets/app_logo.dart';
 import 'package:vaara_app/common_widgets/bg_widget.dart';
@@ -20,6 +23,29 @@ class _FinishSignupState extends State<FinishSignup> {
   ImagePicker profilePicturePicker = ImagePicker();
   bool profilePictureUploaded = false;
   XFile? profilePicture;
+
+  final _userNameContoller = TextEditingController();
+  final _phoneNumberController = TextEditingController();
+  final _cityNameController = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _userNameContoller.dispose();
+    _cityNameController.dispose();
+    _phoneNumberController.dispose();
+    super.dispose();
+  }
+
+  Future addUserDetails() async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'Username': _userNameContoller.text.trim(),
+      'Phone': _phoneNumberController.text.trim(),
+      'Email': (FirebaseAuth.instance.currentUser!).email!,
+      'City': _cityNameController.text.trim(),
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BgWidget(
@@ -90,9 +116,17 @@ class _FinishSignupState extends State<FinishSignup> {
                 Column(
                   children: [
                     CustomTextField(
-                        title: 'Username', hint: 'Choose your username'),
+                        title: 'Username',
+                        hint: 'Choose your username',
+                        textController: _userNameContoller),
                     CustomTextField(
-                        title: 'Phone Number', hint: 'Enter your phone number'),
+                        title: 'Phone Number',
+                        hint: 'Enter your phone number',
+                        textController: _phoneNumberController),
+                    CustomTextField(
+                        title: 'City',
+                        hint: 'Enter your city',
+                        textController: _cityNameController),
                   ],
                 ).box.rounded.padding(EdgeInsets.all(19)).make(),
                 20.heightBox,
@@ -100,6 +134,7 @@ class _FinishSignupState extends State<FinishSignup> {
                     name: 'Finish Sign up',
                     width: context.width - 70,
                     whenPressed: () {
+                      addUserDetails();
                       Get.to(() => LoginScreen());
                     })
               ],

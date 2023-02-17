@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -23,6 +25,28 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final String p = 'Poppins';
   var _termsChecked = false;
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  Future signUp() async {
+    if (_passwordController.text.trim() ==
+        _confirmPasswordController.text.trim()) {
+      FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,14 +80,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
               20.heightBox,
               Column(
                 children: [
-                  CustomTextField(title: 'Email', hint: 'Enter your email'),
+                  CustomTextField(
+                      title: 'Email',
+                      hint: 'Enter your email',
+                      textController: _emailController),
                   CustomTextField(
                       title: 'Password',
                       hint: 'Create a password',
+                      textController: _passwordController,
                       isPass: true),
                   CustomTextField(
                       title: 'Confirm Password',
                       hint: 'Confirm your password',
+                      textController: _confirmPasswordController,
                       isPass: true),
                 ],
               ).box.rounded.padding(EdgeInsets.all(19)).make(),
@@ -83,6 +112,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               MyButton(
                 name: 'Create Account',
                 whenPressed: () {
+                  signUp();
                   Get.to(() => const FinishSignup());
                 },
                 width: context.width - 70,
