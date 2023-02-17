@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,7 @@ import '../consts/colors.dart';
 import '../common_widgets/BottomBar.dart';
 
 class MyLendsRents extends StatelessWidget {
-  const MyLendsRents({super.key});
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +110,9 @@ class MyLendsRents extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomBar(
-        curScene: 2, // 1 = home, 2 = my rents, 3 = notifications, 4 = profile
+        curScene: 2,
+        email: user
+            .email!, // 1 = home, 2 = my rents, 3 = notifications, 4 = profile
       ),
     );
   }

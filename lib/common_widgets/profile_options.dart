@@ -6,13 +6,17 @@ import 'package:velocity_x/velocity_x.dart';
 class Profile_option extends StatelessWidget {
   final String bodyText;
   final IconData? usedIcon;
+  Function onTapped;
 
-  Profile_option({required this.bodyText, required this.usedIcon});
+  Profile_option(
+      {required this.bodyText, required this.usedIcon, required this.onTapped});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        onTapped();
+      },
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
