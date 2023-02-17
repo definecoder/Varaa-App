@@ -57,9 +57,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Column(
                 children: [
                   CustomTextField(title: 'Email', hint: 'Enter your email'),
-                  CustomTextField(title: 'Password', hint: 'Create a password'),
                   CustomTextField(
-                      title: 'Confirm Password', hint: 'Confirm your password'),
+                      title: 'Password',
+                      hint: 'Create a password',
+                      isPass: true),
+                  CustomTextField(
+                      title: 'Confirm Password',
+                      hint: 'Confirm your password',
+                      isPass: true),
                 ],
               ).box.rounded.padding(EdgeInsets.all(19)).make(),
               CheckboxListTile(

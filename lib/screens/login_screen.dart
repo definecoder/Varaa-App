@@ -57,7 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       CustomTextField(title: 'Email', hint: 'Enter your email'),
                       CustomTextField(
-                          title: 'Password', hint: 'Enter your password'),
+                          title: 'Password',
+                          hint: 'Enter your password',
+                          isPass: true),
                     ],
                   ).box.rounded.padding(EdgeInsets.all(19)).make(),
                   30.heightBox,

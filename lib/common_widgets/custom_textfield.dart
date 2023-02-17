@@ -3,7 +3,11 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:get/get.dart';
 
 Widget CustomTextField(
-    {String? title, String? hint, bool? isBig, BuildContext? context = null}) {
+    {String? title,
+    String? hint,
+    bool? isBig,
+    BuildContext? context = null,
+    bool? isPass = false}) {
   return Container(
     padding: const EdgeInsets.all(10),
     decoration: const BoxDecoration(
@@ -21,6 +25,7 @@ Widget CustomTextField(
             minLines: isBig == true ? 3 : 1,
             keyboardType:
                 isBig == true ? TextInputType.multiline : TextInputType.text,
+            obscureText: isPass == true ? true : false,
 
             decoration: InputDecoration(
               //border: OutlineInputBorder(),
