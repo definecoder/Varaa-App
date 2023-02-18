@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -9,7 +10,7 @@ import 'package:velocity_x/velocity_x.dart';
 import '../common_widgets/BottomBar.dart';
 
 class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +85,9 @@ class NotificationScreen extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomBar(
-        curScene: 3, // 1 = home, 2 = my rents, 3 = notifications, 4 = profile
+        curScene: 3,
+        email: user
+            .email!, // 1 = home, 2 = my rents, 3 = notifications, 4 = profile
       ),
     );
   }

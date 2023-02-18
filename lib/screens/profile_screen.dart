@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -14,9 +15,10 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../common_widgets/profile_options.dart';
+import '../firebase_classes/login_auth.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -135,31 +137,41 @@ class ProfileScreen extends StatelessWidget {
                   Profile_option(
                     bodyText: "Edit Profile",
                     usedIcon: Icons.person_rounded,
+                    onTapped: () {},
                   ),
                   10.heightBox,
                   Profile_option(
                     bodyText: "Notification",
                     usedIcon: Icons.notifications,
+                    onTapped: () {},
                   ),
                   10.heightBox,
                   Profile_option(
                     bodyText: "My Rents and Lends",
                     usedIcon: Icons.access_alarm_sharp,
+                    onTapped: () {},
                   ),
                   10.heightBox,
                   Profile_option(
                     bodyText: "Privacy Policy",
                     usedIcon: Icons.lock_person_sharp,
+                    onTapped: () {},
                   ),
                   10.heightBox,
                   Profile_option(
                     bodyText: "Help Center",
                     usedIcon: Icons.help_center,
+                    onTapped: () {},
                   ),
                   10.heightBox,
                   Profile_option(
                     bodyText: "Logout",
                     usedIcon: Icons.exit_to_app,
+                    onTapped: () {
+                      FirebaseAuth.instance.signOut();
+                      Get.to(LoginAuth());
+                      //print("hi");
+                    },
                   ),
                   10.heightBox,
                 ],
@@ -178,6 +190,7 @@ class ProfileScreen extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomBar(
+        email: user.email!,
         curScene: 4,
       ),
     );

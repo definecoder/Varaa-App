@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:vaara_app/common_widgets/bg_widget.dart';
 import 'package:vaara_app/common_widgets/button.dart';
 import 'package:vaara_app/common_widgets/custom_textfield.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:vaara_app/firebase_classes/login_auth.dart';
 import 'package:vaara_app/screens/home_screen.dart';
 
 import '../common_widgets/button3.dart';
@@ -16,6 +19,24 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  Future signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BgWidget(
@@ -55,9 +76,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   11.heightBox,
                   Column(
                     children: [
-                      CustomTextField(title: 'Email', hint: 'Enter your email'),
                       CustomTextField(
-                          title: 'Password', hint: 'Enter your password'),
+                          title: 'Email',
+                          hint: 'Enter your email',
+                          textController: _emailController),
+                      CustomTextField(
+                          title: 'Password',
+                          hint: 'Enter your password',
+                          textController: _passwordController,
+                          isPass: true),
                     ],
                   ).box.rounded.padding(EdgeInsets.all(19)).make(),
                   30.heightBox,
@@ -65,7 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     name: 'Login',
                     width: context.width - 70,
                     whenPressed: () {
-                      Get.to(() => HomeScreen());
+                      print(_emailController.text + _passwordController.text);
+                      signIn();
+                      Get.to(() => LoginAuth());
                     },
                   ),
                   TextButton(

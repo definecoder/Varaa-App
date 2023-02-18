@@ -11,8 +11,9 @@ import '../screens/my_lends_rents.dart';
 
 class BottomBar extends StatelessWidget {
   int curScene;
+  String email;
 
-  BottomBar({this.curScene = 1}) {}
+  BottomBar({this.curScene = 1, this.email = "null"}) {}
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,7 @@ class BottomBar extends StatelessWidget {
             icon: const Icon(Icons.home),
             color: curScene == 1 ? Colors.lime : Colors.white,
             onPressed: () {
+              print(email);
               if (curScene != 1) Get.to(() => HomeScreen());
             },
           ),
@@ -38,6 +40,7 @@ class BottomBar extends StatelessWidget {
             icon: const Icon(Icons.history),
             color: curScene == 2 ? Colors.lime : Colors.white,
             onPressed: () {
+              print(email);
               if (curScene != 2) Get.to(MyLendsRents());
             },
           ),
@@ -48,6 +51,7 @@ class BottomBar extends StatelessWidget {
             icon: const Icon(Icons.notifications),
             color: curScene == 3 ? Colors.lime : Colors.white,
             onPressed: () {
+              print(email);
               if (curScene != 3) Get.to(NotificationScreen());
             },
           ),
@@ -56,6 +60,7 @@ class BottomBar extends StatelessWidget {
             icon: const Icon(Icons.person),
             color: curScene == 4 ? Colors.lime : Colors.white,
             onPressed: () {
+              print(email);
               if (curScene != 4) Get.to(ProfileScreen());
             },
           ),

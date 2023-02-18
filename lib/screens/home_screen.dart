@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:vaara_app/common_widgets/app_logo.dart';
 import 'package:vaara_app/common_widgets/search_bar.dart';
 import 'package:vaara_app/consts/consts.dart';
@@ -12,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final user = FirebaseAuth.instance.currentUser!;
+
   var swiperlist = [
     'assets/nature_bg.png',
     'assets/cycle_image.png',
@@ -95,7 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomBar(
-        curScene: 1, // 1 = home, 2 = my rents, 3 = notifications, 4 = profile
+        curScene: 1,
+        email: user
+            .email!, // 1 = home, 2 = my rents, 3 = notifications, 4 = profile
       ),
     );
   }

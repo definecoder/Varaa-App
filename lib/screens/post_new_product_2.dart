@@ -1,4 +1,5 @@
 import 'package:chips_choice/chips_choice.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -20,6 +21,7 @@ class PostNewProduct2 extends StatefulWidget {
 }
 
 class _PostNewProduct2State extends State<PostNewProduct2> {
+  final user = FirebaseAuth.instance.currentUser!;
   List<String> options = [
     'Daily',
     'Weekly',
