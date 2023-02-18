@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "878308741515",
+    "project_id": "varaa-app-b86c8",
+    "storage_bucket": "varaa-app-b86c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878308741515:android:19e44eb2d1a38510dc1f8e",
+        "android_client_info": {
+          "package_name": "com.example.vaara_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878308741515-2tq0vcj2rb6ogbs5qqs9785eonrek359.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfpjiQb96SF9g6L69N2879YEYdBbt7gWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878308741515-2tq0vcj2rb6ogbs5qqs9785eonrek359.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "878308741515-94oappuuc9sov83nsblv168bni91dua4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vaaraApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

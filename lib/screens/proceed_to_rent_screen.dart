@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vaara_app/common_widgets/Button_bold_big.dart';
@@ -9,6 +10,7 @@ import 'package:vaara_app/consts/consts.dart';
 import 'package:vaara_app/screens/home_screen.dart';
 
 class ProceedRentScreen extends StatelessWidget {
+  final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

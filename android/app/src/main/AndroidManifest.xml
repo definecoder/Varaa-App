@@ -2,8 +2,9 @@
     package="com.example.vaara_app">
    <application
         android:label="vaara_app"
-        android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:name="${applicationName}"        
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">        
         <activity
             android:name=".MainActivity"
             android:exported="true"

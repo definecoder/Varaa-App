@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chips_choice/chips_choice.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -22,6 +23,7 @@ class PostNewProduct extends StatefulWidget {
 }
 
 class _PostNewProductState extends State<PostNewProduct> {
+  final user = FirebaseAuth.instance.currentUser!;
   ImagePicker productImagePicker = ImagePicker();
   bool productImageUploaded = false;
   XFile? productImage;
