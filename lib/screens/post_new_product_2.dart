@@ -131,20 +131,6 @@ class _PostNewProduct2State extends State<PostNewProduct2> {
                   ),
                   Expanded(child: Container()),
                   Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    // NextButton(
-                    //     height: 40,
-                    //     width: 135,
-                    //     name: "show Info",
-                    //     whenPressed: () {
-                    //       print(widget.productName);
-                    //       print(widget.description);
-                    //       print(widget.imageUrl);
-                    //       print(widget.condition);
-                    //       print(rentController.text);
-                    //       print(options[tag2]);
-                    //       print(addressController.text);
-                    //       print(cityController.text);
-                    //     }),
                     NextButton(
                         height: 40,
                         width: 135,
@@ -153,6 +139,19 @@ class _PostNewProduct2State extends State<PostNewProduct2> {
                           // do the firebase stuff!
 
                           // print(user.displayName);
+
+                          // CollectionReference collectionRef =
+                          //     FirebaseFirestore.instance.collection('products');
+                          // QuerySnapshot querySnapshot =
+                          //     await collectionRef.get();
+
+                          // for (QueryDocumentSnapshot documentSnapshot
+                          //     in querySnapshot.docs) {
+                          //   // access the document fields using documentSnapshot.data()
+                          //   print(documentSnapshot['uid']);
+                          //   print('1');
+                          //   // userProducts.add(Product(location: 'location', title: 'title', frequency: 'frequency', price: 'price'));
+                          // }
 
                           await firebaseController.storeProductData(
                             title: widget.productName,
@@ -164,6 +163,8 @@ class _PostNewProduct2State extends State<PostNewProduct2> {
                             imageUrl: widget.imageUrl,
                             rent: rentController.text,
                             user: user,
+                            status: 'Available',
+                            isLend: true,
                           );
 
                           Get.to(HomeScreen());

@@ -4,16 +4,19 @@ import 'package:vaara_app/consts/consts.dart';
 
 class FirebaseController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  storeProductData(
-      {title,
-      condition,
-      description,
-      imageUrl,
-      rent,
-      frequency,
-      address,
-      city,
-      user}) {
+  storeProductData({
+    title,
+    condition,
+    description,
+    imageUrl,
+    rent,
+    frequency,
+    address,
+    city,
+    user,
+    status,
+    isLend,
+  }) {
     DocumentReference product = firestore
         .collection('products')
         .doc(); //FirebaseAuth.instance.currentUser!.uid
@@ -28,6 +31,8 @@ class FirebaseController extends GetxController {
       'address': address,
       'city': city,
       'uid': user.uid,
+      'status': status,
+      'isLend': isLend,
     });
   }
 }
