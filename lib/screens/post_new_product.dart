@@ -24,16 +24,20 @@ class PostNewProduct extends StatefulWidget {
 
 class _PostNewProductState extends State<PostNewProduct> {
   final user = FirebaseAuth.instance.currentUser!;
+
+  var nameController = TextEditingController();
+  var descriptionController = TextEditingController();
+
   ImagePicker productImagePicker = ImagePicker();
   bool productImageUploaded = false;
   XFile? productImage;
   List<String> options = [
-    'Excelent',
+    'Excellent',
     'Good',
     'Okay',
     'Bad',
   ];
-  //List<int> tags = [1, 2, 3, 4];
+  //List<int> tags = [0, 1, 2, 3];
   int tag = 2;
 
   @override
@@ -77,7 +81,10 @@ class _PostNewProductState extends State<PostNewProduct> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomTextField(
-                            title: 'Product Name', hint: 'Add product name'),
+                          title: 'Product Name',
+                          hint: 'Add product name',
+                          textController: nameController,
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -94,7 +101,9 @@ class _PostNewProductState extends State<PostNewProduct> {
                             5.heightBox,
                             ChipsChoice.single(
                               value: tag,
-                              onChanged: (val) => setState(() => tag = val),
+                              onChanged: (val) {
+                                setState(() => tag = val);
+                              },
                               choiceItems: C2Choice.listFrom(
                                 source: options,
                                 value: (i, v) => i,
@@ -106,6 +115,7 @@ class _PostNewProductState extends State<PostNewProduct> {
                         CustomTextField(
                             title: 'Description',
                             hint: 'Enter product details',
+                            textController: descriptionController,
                             isBig: true),
                       ],
                     ).box.rounded.padding(EdgeInsets.all(19)).make(),
@@ -150,7 +160,16 @@ class _PostNewProductState extends State<PostNewProduct> {
                         width: 95,
                         name: "N E X T",
                         whenPressed: () {
-                          Get.to(PostNewProduct2());
+                          Get.to(
+                            PostNewProduct2(
+                              productName: nameController.text,
+                              description: descriptionController.text,
+                              imageUrl: (productImage == null)
+                                  ? null
+                                  : productImage!.path,
+                              condition: options[tag],
+                            ),
+                          );
                         }),
                     20.widthBox
                   ]),
