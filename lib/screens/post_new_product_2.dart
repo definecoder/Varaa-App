@@ -1,4 +1,5 @@
 import 'package:chips_choice/chips_choice.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -11,10 +12,21 @@ import '../common_widgets/button.dart';
 import '../common_widgets/button_next.dart';
 import '../common_widgets/custom_textfield.dart';
 import '../consts/consts.dart';
+import '../controllers/firebase_controller.dart';
 import './profile_screen.dart';
 
 class PostNewProduct2 extends StatefulWidget {
-  PostNewProduct2();
+  final productName;
+  final description;
+  dynamic imageUrl;
+  final condition;
+
+  PostNewProduct2(
+      {this.productName, this.description, this.imageUrl, this.condition}) {
+    if (imageUrl == null) {
+      imageUrl = 'assets/no_image.png';
+    }
+  }
 
   @override
   State<PostNewProduct2> createState() => _PostNewProduct2State();
@@ -22,6 +34,12 @@ class PostNewProduct2 extends StatefulWidget {
 
 class _PostNewProduct2State extends State<PostNewProduct2> {
   final user = FirebaseAuth.instance.currentUser!;
+
+  var firebaseController = Get.put(FirebaseController());
+  var rentController = TextEditingController();
+  var addressController = TextEditingController();
+  var cityController = TextEditingController();
+
   List<String> options = [
     'Daily',
     'Weekly',
@@ -70,7 +88,10 @@ class _PostNewProduct2State extends State<PostNewProduct2> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         CustomTextField(
-                            title: 'Product Rent', hint: 'Add product rent'),
+                          title: 'Product Rent',
+                          hint: 'Enter the amount of rent',
+                          textController: rentController,
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -99,18 +120,52 @@ class _PostNewProduct2State extends State<PostNewProduct2> {
                         CustomTextField(
                             title: 'Address',
                             hint: 'Enter Product Address',
+                            textController: addressController,
                             isBig: true),
-                        CustomTextField(title: 'City', hint: 'Choose city'),
+                        CustomTextField(
+                            title: 'City',
+                            hint: 'Enter city name',
+                            textController: cityController),
                       ],
                     ).box.rounded.padding(EdgeInsets.all(19)).make(),
                   ),
                   Expanded(child: Container()),
                   Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    // NextButton(
+                    //     height: 40,
+                    //     width: 135,
+                    //     name: "show Info",
+                    //     whenPressed: () {
+                    //       print(widget.productName);
+                    //       print(widget.description);
+                    //       print(widget.imageUrl);
+                    //       print(widget.condition);
+                    //       print(rentController.text);
+                    //       print(options[tag2]);
+                    //       print(addressController.text);
+                    //       print(cityController.text);
+                    //     }),
                     NextButton(
                         height: 40,
                         width: 135,
                         name: "POST RENT",
-                        whenPressed: () {
+                        whenPressed: () async {
+                          // do the firebase stuff!
+
+                          // print(user.displayName);
+
+                          await firebaseController.storeProductData(
+                            title: widget.productName,
+                            address: addressController.text,
+                            city: cityController.text,
+                            condition: widget.condition,
+                            description: widget.description,
+                            frequency: options[tag2],
+                            imageUrl: widget.imageUrl,
+                            rent: rentController.text,
+                            user: user,
+                          );
+
                           Get.to(HomeScreen());
                         }),
                     20.widthBox

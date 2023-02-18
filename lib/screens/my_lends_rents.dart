@@ -30,6 +30,7 @@ class MyLendsRents extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    // I have to make this list dynamic, i need to use generate method of list
                     ProductData(
                       frequency: "month",
                       isLend: true,
