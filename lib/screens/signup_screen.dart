@@ -9,9 +9,11 @@ import 'package:get/get.dart';
 import 'package:vaara_app/common_widgets/button.dart';
 import 'package:vaara_app/common_widgets/custom_textfield.dart';
 import 'package:vaara_app/screens/finish_signup_screen.dart';
+import 'package:vaara_app/screens/welcome_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -30,13 +32,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
-  Future signUp() async {
-    if (_passwordController.text.trim() ==
-        _confirmPasswordController.text.trim()) {
-      FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+  Future signUp(context) async {
+    try {
+      if (_passwordController.text.trim() ==
+          _confirmPasswordController.text.trim()) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      VxToast.show(context, msg: e.toString());
+      Get.to(WelcomeScreen());
     }
   }
 
@@ -112,7 +119,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               MyButton(
                 name: 'Create Account',
                 whenPressed: () {
-                  signUp();
+                  signUp(context);
                   Get.to(() => const FinishSignup());
                 },
                 width: context.width - 70,

@@ -81,7 +81,6 @@ class BottomBar extends StatelessWidget {
 
                 Get.to(MyLendsRents(userProducts));
               }
-              ;
             },
           ),
           20.widthBox,

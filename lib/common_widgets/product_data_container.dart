@@ -106,7 +106,7 @@ class ProductData extends StatelessWidget {
                               .size(14)
                               .color(purple1)
                               .make(),
-                          ("per " + frequency).text.size(14).make(),
+                          (frequency).text.size(14).make(),
                           5.widthBox,
                         ],
                       )

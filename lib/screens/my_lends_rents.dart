@@ -41,8 +41,22 @@ class MyLendsRents extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: userProducts.length == 0
-                    ? Center(
-                        child: Text('No Lends or Rends yet'),
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: 'No lends or rents yet!'
+                                .text
+                                .bold
+                                .size(20)
+                                .fontFamily(poppins)
+                                .make(),
+                          ),
+                          Image.asset('assets/waiting.png', fit: BoxFit.cover)
+                              .box
+                              .height(200)
+                              .make(),
+                        ],
                       )
                     : Column(
                         children:

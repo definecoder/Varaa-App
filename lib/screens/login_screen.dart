@@ -10,6 +10,7 @@ import 'package:vaara_app/firebase_classes/login_auth.dart';
 import 'package:vaara_app/screens/home_screen.dart';
 
 import '../common_widgets/button3.dart';
+import '../controllers/product_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
