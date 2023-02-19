@@ -29,7 +29,8 @@ class ProductController extends GetxController {
             imgLocation: documentSnapshot['imageUrl'],
             isLend: documentSnapshot['isLend'],
             status: documentSnapshot['status'],
-            id: documentSnapshot['id']),
+            id: documentSnapshot['id'],
+            productOwner: documentSnapshot['uid']),
       );
 
       // userProducts.add(Product(location: 'location', title: 'title', frequency: 'frequency', price: 'price'));

@@ -15,9 +15,12 @@ import 'package:velocity_x/velocity_x.dart';
 class ProductInfoScreen extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
   String pid;
-  var productLoader;
+  var productLoader, productOwnerLoader;
 
-  ProductInfoScreen({required this.pid, this.productLoader}) {
+  ProductInfoScreen(
+      {required this.pid,
+      this.productLoader,
+      required this.productOwnerLoader}) {
     //productLoader = Get.find<SingleProductLoader>();
     //productLoader.loadProductById(pid).then((hi) {});
   }
@@ -141,13 +144,22 @@ class ProductInfoScreen extends StatelessWidget {
                   children: [
                     Container(
                       width: context.width * 0.21,
-                      child: "Mr. Mehraj"
+                      child: Text(
+                        productOwnerLoader.currentUser.username,
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Popins',
+                        ),
+                      ),
+                      /*"Mr. Mehraj"
                           .text
                           .align(TextAlign.end)
                           .size(17)
                           .bold
                           .fontFamily('Popins')
-                          .make(),
+                          .make(),*/
                     ),
                     "Level 3".text.size(14).make(),
                     //3.heightBox,
@@ -161,7 +173,8 @@ class ProductInfoScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       10.heightBox,
-                      CirculerImage("./assets/dp1.png", context.width * .08),
+                      CirculerImage(productOwnerLoader.currentUser.imageUrl,
+                          context.width * .08),
                       10.heightBox,
                     ],
                   ),
@@ -279,7 +292,11 @@ class ProductInfoScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   "Contact".text.size(18).semiBold.make(),
-                                  "+8801913112522".text.size(16).make(),
+                                  Text(
+                                    productOwnerLoader.currentUser.phone_number,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  //"+8801913112522".text.size(16).make(),
                                 ],
                               ),
                             ),

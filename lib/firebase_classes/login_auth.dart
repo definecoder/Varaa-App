@@ -9,6 +9,7 @@ import 'package:vaara_app/screens/home_screen.dart';
 import 'package:vaara_app/screens/login_screen.dart';
 import 'package:vaara_app/screens/welcome_screen.dart';
 
+import '../controllers/find_user_controller.dart';
 import '../controllers/product_controller.dart';
 
 class LoginAuth extends StatelessWidget {
@@ -17,6 +18,7 @@ class LoginAuth extends StatelessWidget {
   var controller = Get.put(ProductController());
   var userController = Get.put(UserController());
   var productLoader = Get.put(SingleProductLoader());
+  var productOwnerLoader = Get.put(FindUserController());
 
   @override
   Widget build(BuildContext context) {

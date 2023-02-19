@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:vaara_app/consts/consts.dart';
 import 'package:flutter/material.dart';
+import 'package:vaara_app/controllers/find_user_controller.dart';
 import 'package:vaara_app/screens/product_info_screen.dart';
 
 import '../controllers/single_product_loader.dart';
@@ -37,12 +38,18 @@ class ProductData extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         var productLoader = Get.find<SingleProductLoader>();
-        await productLoader.loadProductById(productId).then((hi) {
+        var productOwnerLoader = Get.find<FindUserController>();
+        await productLoader.loadProductById(productId).then((hi) async {
           //print(productLoader.curProduct!.title);
-          Get.to(ProductInfoScreen(
-            pid: productId,
-            productLoader: productLoader,
-          ));
+          await productOwnerLoader
+              .loadUserInfo(productLoader.curProduct!.productOwner)
+              .then((bye) {
+            Get.to(ProductInfoScreen(
+              pid: productId,
+              productLoader: productLoader,
+              productOwnerLoader: productOwnerLoader,
+            ));
+          });
         });
       },
       child: Container(

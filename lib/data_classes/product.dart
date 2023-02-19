@@ -11,6 +11,7 @@ class Product {
   String description;
   String address;
   String id;
+  String productOwner;
 
   Product(
       {required this.id,
@@ -24,5 +25,6 @@ class Product {
       this.isHome = true,
       this.address = 'N/A',
       this.condition = 'N/A',
-      this.description = 'N/A'});
+      this.description = 'N/A',
+      required this.productOwner});
 }
