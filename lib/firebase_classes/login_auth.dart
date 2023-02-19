@@ -2,12 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:vaara_app/consts/consts.dart';
 import 'package:vaara_app/screens/home_screen.dart';
 import 'package:vaara_app/screens/login_screen.dart';
 import 'package:vaara_app/screens/welcome_screen.dart';
 
+import '../controllers/product_controller.dart';
+
 class LoginAuth extends StatelessWidget {
-  const LoginAuth({super.key});
+  LoginAuth({super.key});
+
+  var controller = Get.put(ProductController());
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +21,7 @@ class LoginAuth extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            controller.loadAllProducts();
             return HomeScreen();
           } else {
             return WelcomeScreen();
