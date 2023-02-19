@@ -23,6 +23,7 @@ class LoginAuth extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            //controller.productslist.clear();
             controller.loadAllProducts();
             userController.loadCurrentUserInfo();
             return HomeScreen();

@@ -8,6 +8,7 @@ class ProductController extends GetxController {
 
   loadAllProducts() async {
     // productslist = [];
+    //productslist.clear();
     CollectionReference collectionRef =
         FirebaseFirestore.instance.collection('products');
     QuerySnapshot querySnapshot = await collectionRef.get();

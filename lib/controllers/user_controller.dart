@@ -30,5 +30,12 @@ class UserController extends GetxController {
 
       // userProducts.add(Product(location: 'location', title: 'title', frequency: 'frequency', price: 'price'));
     }
+    if (currentUser!.email == null) currentUser!.email = "null";
+    if (currentUser!.phone_number == null) currentUser!.phone_number = "null";
+    if (currentUser!.username == null) currentUser!.username = "null";
+    if (currentUser!.city == null) currentUser!.city = "null";
+    if (currentUser!.imageUrl == null)
+      currentUser!.imageUrl =
+          "https://media.istockphoto.com/id/1209654046/vector/user-avatar-profile-icon-black-vector-illustration.jpg?s=612x612&w=0&k=20&c=EOYXACjtZmZQ5IsZ0UUp1iNmZ9q2xl1BD1VvN6tZ2UI=";
   }
 }
