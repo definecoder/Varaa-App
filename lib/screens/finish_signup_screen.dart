@@ -9,6 +9,7 @@ import 'package:vaara_app/common_widgets/bg_widget.dart';
 import 'package:vaara_app/common_widgets/custom_textfield.dart';
 import 'package:vaara_app/consts/consts.dart';
 import 'package:vaara_app/screens/login_screen.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import '../common_widgets/button.dart';
 
@@ -23,6 +24,9 @@ class _FinishSignupState extends State<FinishSignup> {
   ImagePicker profilePicturePicker = ImagePicker();
   bool profilePictureUploaded = false;
   XFile? profilePicture;
+  String userPhotoUrl = "null";
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
 
   final _userNameContoller = TextEditingController();
   final _phoneNumberController = TextEditingController();
@@ -38,11 +42,14 @@ class _FinishSignupState extends State<FinishSignup> {
   }
 
   Future addUserDetails() async {
+    print(userPhotoUrl);
     await FirebaseFirestore.instance.collection('users').add({
       'Username': _userNameContoller.text.trim(),
       'Phone': _phoneNumberController.text.trim(),
       'Email': (FirebaseAuth.instance.currentUser!).email!,
       'City': _cityNameController.text.trim(),
+      'PhotoUrl': userPhotoUrl as String,
+      'id': FirebaseAuth.instance.currentUser!.uid,
     });
   }
 
@@ -133,9 +140,27 @@ class _FinishSignupState extends State<FinishSignup> {
                 MyButton(
                     name: 'Finish Sign up',
                     width: context.width - 70,
-                    whenPressed: () {
-                      addUserDetails();
-                      Get.to(() => LoginScreen());
+                    whenPressed: () async {
+                      setState(() async {
+                        if (profilePicture != null)
+                          profilePictureUploaded = true;
+                        firebase_storage.Reference ref = firebase_storage
+                            .FirebaseStorage.instance
+                            .ref('/userDp/' +
+                                FirebaseAuth.instance.currentUser!.uid);
+                        firebase_storage.UploadTask uploadTask =
+                            ref.putFile(File(profilePicture!.path));
+
+                        await Future.value(uploadTask);
+                        ref.getDownloadURL().then((String url) {
+                          setState(() {
+                            userPhotoUrl = url;
+                            addUserDetails();
+                          });
+                        });
+
+                        Get.to(() => LoginScreen());
+                      });
                     })
               ],
             ),
