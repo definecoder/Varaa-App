@@ -11,6 +11,9 @@ import 'package:vaara_app/screens/home_screen.dart';
 
 class ProceedRentScreen extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
+  var productLoader, productOwnerLoader;
+  ProceedRentScreen(
+      {required this.productLoader, required this.productOwnerLoader}) {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +58,8 @@ class ProceedRentScreen extends StatelessWidget {
                     15.widthBox,
                     Column(
                       children: [
-                        CirculerImage("./assets/dp1.png", context.width * 0.12),
+                        CirculerImage(productOwnerLoader.currentUser.imageUrl,
+                            context.width * 0.12),
                         Container(
                           padding: EdgeInsets.all(7),
                           child: MyButton(height: 20, width: 60, name: "PRO"),
@@ -74,19 +78,35 @@ class ProceedRentScreen extends StatelessWidget {
                               .size(16)
                               .color(Color(0xff9F1F63))
                               .make(),
-                          "Mehrajul Islam"
+                          Text(
+                            productOwnerLoader.currentUser.username,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          /*"Mehrajul Islam"
                               .text
                               .align(TextAlign.right)
                               .size(22)
                               .semiBold
-                              .make(),
+                              .make(),*/
                           "Level 3".text.align(TextAlign.right).make(),
-                          "+8801913112522"
+                          Text(
+                            productOwnerLoader.currentUser.phone_number,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          /*"+8801913112522"
                               .text
                               .align(TextAlign.right)
                               .size(17)
                               .semiBold
-                              .make(),
+                              .make(),*/
                         ],
                       ),
                     ),

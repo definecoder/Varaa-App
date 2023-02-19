@@ -118,7 +118,10 @@ class ProductData extends StatelessWidget {
                         children: [
                           Icon(Icons.location_on, size: 17),
                           1.widthBox,
-                          location.text.size(14).make(),
+                          Container(
+                            width: context.width * 0.22,
+                            child: location.text.size(14).make(),
+                          ),
                           Expanded(child: Container()),
                           ("৳ " + price + " ")
                               .text

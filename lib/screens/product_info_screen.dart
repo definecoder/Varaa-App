@@ -368,7 +368,10 @@ class ProductInfoScreen extends StatelessWidget {
                     height: 45,
                     font_size: 22,
                     whenPressed: () {
-                      Get.to(ProceedRentScreen());
+                      Get.to(ProceedRentScreen(
+                        productLoader: productLoader,
+                        productOwnerLoader: productOwnerLoader,
+                      ));
                     }),
               ),
             ],
