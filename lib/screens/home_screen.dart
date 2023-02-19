@@ -3,6 +3,7 @@ import 'package:vaara_app/common_widgets/app_logo.dart';
 import 'package:vaara_app/common_widgets/search_bar.dart';
 import 'package:vaara_app/consts/consts.dart';
 import 'package:vaara_app/controllers/product_controller.dart';
+import 'package:vaara_app/controllers/user_controller.dart';
 
 import '../common_widgets/product_data_container.dart';
 import '../data_classes/product.dart';
