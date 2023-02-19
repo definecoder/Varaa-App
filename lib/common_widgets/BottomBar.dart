@@ -44,7 +44,7 @@ class BottomBar extends StatelessWidget {
             icon: const Icon(Icons.history),
             color: curScene == 2 ? Colors.lime : Colors.white,
             onPressed: () async {
-              print(email);
+              //print(email);
 
               if (curScene != 2) {
                 List<Product> userProducts = [];
