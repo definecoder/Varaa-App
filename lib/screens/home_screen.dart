@@ -9,9 +9,11 @@ import '../common_widgets/product_data_container.dart';
 import '../data_classes/product.dart';
 
 class HomeScreen extends StatefulWidget {
-  var controller = Get.find<ProductController>();
+  var controller;
 
-  HomeScreen({super.key});
+  HomeScreen() {
+    controller = Get.find<ProductController>();
+  }
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
