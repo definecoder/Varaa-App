@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:vaara_app/consts/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:vaara_app/screens/product_info_screen.dart';
 
+import '../controllers/single_product_loader.dart';
 import 'circuler_image.dart';
 
 class ProductData extends StatelessWidget {
@@ -16,6 +19,7 @@ class ProductData extends StatelessWidget {
   final String imgLocation;
   final String price;
   final bool isHome;
+  final String productId;
 
   ProductData(
       {required this.isLend,
@@ -25,13 +29,21 @@ class ProductData extends StatelessWidget {
       required this.title,
       required this.imgLocation,
       required this.price,
-      this.isHome = false});
+      this.isHome = false,
+      required this.productId});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Get.to(ProductInfoScreen());
+      onTap: () async {
+        var productLoader = Get.find<SingleProductLoader>();
+        await productLoader.loadProductById(productId).then((hi) {
+          //print(productLoader.curProduct!.title);
+          Get.to(ProductInfoScreen(
+            pid: productId,
+            productLoader: productLoader,
+          ));
+        });
       },
       child: Container(
         width: double.infinity,

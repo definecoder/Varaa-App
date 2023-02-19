@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:vaara_app/controllers/single_product_loader.dart';
 import 'package:vaara_app/controllers/user_controller.dart';
 import 'package:vaara_app/screens/home_screen.dart';
 import 'package:vaara_app/screens/login_screen.dart';
@@ -15,6 +16,7 @@ class LoginAuth extends StatelessWidget {
 
   var controller = Get.put(ProductController());
   var userController = Get.put(UserController());
+  var productLoader = Get.put(SingleProductLoader());
 
   @override
   Widget build(BuildContext context) {

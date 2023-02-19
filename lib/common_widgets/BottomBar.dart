@@ -72,6 +72,8 @@ class BottomBar extends StatelessWidget {
                         imgLocation: documentSnapshot['imageUrl'],
                         isLend: documentSnapshot['isLend'],
                         status: documentSnapshot['status'],
+                        isHome: false,
+                        id: documentSnapshot['id'],
                       ),
                     );
                   }

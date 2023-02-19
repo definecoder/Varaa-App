@@ -8,11 +8,20 @@ import 'package:vaara_app/common_widgets/Button_bold_big.dart';
 import 'package:vaara_app/common_widgets/button.dart';
 import 'package:vaara_app/common_widgets/button2.dart';
 import 'package:vaara_app/common_widgets/circuler_image.dart';
+import 'package:vaara_app/controllers/single_product_loader.dart';
 import 'package:vaara_app/screens/proceed_to_rent_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ProductInfoScreen extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
+  String pid;
+  var productLoader;
+
+  ProductInfoScreen({required this.pid, this.productLoader}) {
+    //productLoader = Get.find<SingleProductLoader>();
+    //productLoader.loadProductById(pid).then((hi) {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +41,11 @@ class ProductInfoScreen extends StatelessWidget {
                       height: context.height * 0.4,
                       child: Opacity(
                         opacity: 0.85,
-                        child: Image.asset(
-                          './assets/tent_nature.png',
+                        child: Image.network(
+                          productLoader.curProduct!.imgLocation,
                           fit: BoxFit.cover,
+                          //'./assets/tent_nature.png',
+                          //fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -65,21 +76,41 @@ class ProductInfoScreen extends StatelessWidget {
                     //mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      "Camp Tent"
+                      /*(productLoader.curProduct!).title
                           .text
                           .size(28)
                           .fontWeight(FontWeight.w500)
                           .fontFamily('Popins')
-                          .make(),
+                          .make(),*/
+                      Text(
+                        productLoader.curProduct!.title,
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Popins',
+                        ),
+                      ),
                       Container(
                         padding: EdgeInsets.all(2),
                         width: context.width * 0.5,
-                        child: "৳ 250 per day"
+                        child: Text(
+                          "৳ " +
+                              productLoader.curProduct!.price +
+                              " " +
+                              productLoader.curProduct!.frequency,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: purple1,
+                            fontFamily: 'Popins',
+                          ),
+                        ),
+                        /*"৳ 250 per day"
                             .text
                             .size(20)
                             .semiBold
                             .color(purple1)
-                            .make(),
+                            .make(),*/
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -88,14 +119,22 @@ class ProductInfoScreen extends StatelessWidget {
                           Icon(Icons.location_on),
                           Container(
                             width: context.width * 0.4,
-                            child: "Sylhet".text.size(18).make(),
+                            child: Text(
+                              productLoader.curProduct!.location,
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                            /*productLoader.curProduct!.location.text
+                                .size(18)
+                                .make(),*/
                           )
                         ],
                       )
                     ],
                   ),
                 ),
-                Expanded(child: Container()),
+                //Expanded(child: Container()),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,7 +157,7 @@ class ProductInfoScreen extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
                   child: Column(
                     children: [
                       10.heightBox,
@@ -129,7 +168,7 @@ class ProductInfoScreen extends StatelessWidget {
                 ),
               ]),
               Container(
-                padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                padding: EdgeInsets.fromLTRB(20, 15, 20, 20),
                 child: Row(
                   children: [
                     Container(
@@ -154,8 +193,8 @@ class ProductInfoScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           "Address".text.size(16).semiBold.make(),
-                          const ExpandableText(
-                            "148/D Hi Rise Garden view Khulsi Green H/S 148/D Hi Rise Garden view Khulsi Green H/S 148/D Hi Rise Garden view Khulsi Green H/S 148/D Hi Rise Garden view Khulsi Green H/S",
+                          ExpandableText(
+                            productLoader.curProduct!.address,
                             expandText: 'show more',
                             collapseText: 'show less',
                             style:
@@ -170,7 +209,7 @@ class ProductInfoScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 15),
+                padding: EdgeInsets.fromLTRB(20, 5, 20, 15),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -209,13 +248,22 @@ class ProductInfoScreen extends StatelessWidget {
                           padding: EdgeInsets.fromLTRB(0, 7, 0, 0),
                           alignment: Alignment.centerLeft,
                           //color: purple1,
-                          child: "EXCELENT"
-                              .text
+                          child: Text(
+                            productLoader.curProduct!.condition,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Popins',
+                              color: Color.fromARGB(255, 40, 131, 43),
+                            ),
+                          ),
+                          /*productLoader.curProduct!.condition.text
                               .align(TextAlign.left)
                               .color(Color.fromARGB(255, 40, 131, 43))
                               .size(22)
                               .fontWeight(FontWeight.w700)
-                              .make(),
+                              .make(),*/
                         )
                       ],
                     ),
@@ -265,19 +313,24 @@ class ProductInfoScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+                padding: const EdgeInsets.fromLTRB(30, 10, 30, 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    "Product Description"
-                        .text
-                        .bold
-                        .color(purple1)
-                        .size(22)
-                        .make(),
+                    Row(
+                      children: [
+                        "Product Description"
+                            .text
+                            .bold
+                            .color(purple1)
+                            .size(22)
+                            .make(),
+                        Expanded(child: Container()),
+                      ],
+                    ),
                     5.heightBox,
-                    const ExpandableText(
-                      "This is SUN camp tent. This can save you from sun, rain and snow This is SUN camp tent. This can save you from sun, rain and snow This is SUN camp tent. This can save you from sun, rain and snow This is SUN camp tent. This can save you from sun, rain and snow This is SUN camp tent. This can save you from sun, rain and snow",
+                    ExpandableText(
+                      productLoader.curProduct!.address,
                       expandText: 'show more',
                       collapseText: 'show less',
                       style: TextStyle(
