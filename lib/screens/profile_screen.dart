@@ -15,10 +15,12 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../common_widgets/profile_options.dart';
+import '../controllers/user_controller.dart';
 import '../firebase_classes/login_auth.dart';
 
 class ProfileScreen extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
+  var userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -66,13 +68,13 @@ class ProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       40.widthBox,
-                      CirculerImage("./assets/dp1.png", 0.17 * context.width),
+                      CirculerImage(userController.currentUser!.imageUrl,
+                          0.17 * context.width),
                       30.widthBox,
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          "Mr. Mehraj"
-                              .text
+                          userController.currentUser!.username.text
                               .fontFamily('popins')
                               .size(22)
                               .color(Colors.black)

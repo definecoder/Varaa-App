@@ -50,7 +50,7 @@ class ProductData extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: Image(
-                      image: AssetImage(imgLocation),
+                      image: NetworkImage(imgLocation),
                       width: context.width * 0.33,
                       height: context.width * 0.33,
                       fit: BoxFit.fill,
