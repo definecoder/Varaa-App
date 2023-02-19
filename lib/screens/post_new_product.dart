@@ -160,16 +160,29 @@ class _PostNewProductState extends State<PostNewProduct> {
                         width: 95,
                         name: "N E X T",
                         whenPressed: () {
-                          Get.to(
-                            PostNewProduct2(
-                              productName: nameController.text,
-                              description: descriptionController.text,
-                              imageUrl: (productImage == null)
-                                  ? null
-                                  : productImage!.path,
-                              condition: options[tag],
-                            ),
-                          );
+                          if (nameController.text.isEmpty) {
+                            context.showToast(
+                                msg: "ADD PRODUCT NAME PLEASE",
+                                position: VxToastPosition.bottom);
+                          } else if (descriptionController.text.isEmpty) {
+                            context.showToast(
+                                msg: "ADD PRODUCT DESCRIPTION PLEASE",
+                                position: VxToastPosition.bottom);
+                          } else if (productImage == null) {
+                            context.showToast(
+                                msg: "ADD PRODUCT PHOTO PLEASE",
+                                position: VxToastPosition.bottom);
+                          } else
+                            Get.to(
+                              PostNewProduct2(
+                                productName: nameController.text,
+                                description: descriptionController.text,
+                                imageUrl: (productImage == null)
+                                    ? null
+                                    : productImage!.path,
+                                condition: options[tag],
+                              ),
+                            );
                         }),
                     20.widthBox
                   ]),
