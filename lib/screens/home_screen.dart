@@ -23,9 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final user = FirebaseAuth.instance.currentUser!;
 
   var swiperlist = [
-    'assets/nature_bg.png',
-    'assets/cycle_image.png',
-    'assets/camera_image.png',
+    'assets/daraz.jpeg',
+    'assets/gp.jpeg',
+    'assets/rokomari.jpeg',
   ];
 
   @override
@@ -60,21 +60,49 @@ class _HomeScreenState extends State<HomeScreen> {
               enlargeCenterPage: true,
             ),
             //20.heightBox,
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(10, (index) {
-                  return Container(
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(5),
-                    decoration: const BoxDecoration(
-                        color: Color.fromARGB(129, 191, 182, 190),
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: "Category $index".text.size(13).make(),
-                  );
-                }),
-              ),
+
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   child: Row(
+            //     children: List.generate(10, (index) {
+            //       return Container(
+            //         margin: EdgeInsets.all(10),
+            //         padding: EdgeInsets.all(5),
+            //         decoration: const BoxDecoration(
+            //             color: Color.fromARGB(129, 191, 182, 190),
+            //             borderRadius: BorderRadius.all(Radius.circular(8))),
+            //         child: "Category $index".text.size(13).make(),
+            //       );
+            //     }),
+            //   ),
+            // ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.arrow_downward,
+                  color: purple1,
+                ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Text(
+                    'Trending',
+                    style: TextStyle(
+                      color: purple1,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 5),
+                Icon(
+                  Icons.arrow_downward,
+                  color: purple1,
+                ),
+              ],
             ),
+
             10.heightBox,
             Expanded(
               //height: 310,
