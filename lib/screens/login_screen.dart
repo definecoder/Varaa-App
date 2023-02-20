@@ -6,6 +6,8 @@ import 'package:vaara_app/common_widgets/bg_widget.dart';
 import 'package:vaara_app/common_widgets/button.dart';
 import 'package:vaara_app/common_widgets/custom_textfield.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:vaara_app/controllers/user_controller.dart';
+import 'package:vaara_app/data_classes/product.dart';
 import 'package:vaara_app/firebase_classes/login_auth.dart';
 import 'package:vaara_app/screens/home_screen.dart';
 import 'package:vaara_app/screens/welcome_screen.dart';
@@ -23,6 +25,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  var controller = Get.find<ProductController>();
+  var userController = Get.find<UserController>();
 
   bool isLoading = false;
   bool exceptionCaught = false;
@@ -124,10 +129,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (_emailController.text.isNotEmpty &&
                                 _passwordController.text.isNotEmpty) {
                               await signIn();
-                              setState(() {
-                                isLoading = false;
-                              });
-                              if (!exceptionCaught) Get.to(() => HomeScreen());
+
+                              if (!exceptionCaught) {
+                                await controller.loadAllProducts();
+                                await userController.loadCurrentUserInfo();
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                Get.to(() => LoginAuth());
+                              }
                             } else {
                               if (_emailController.text.isEmpty) {
                                 VxToast.show(

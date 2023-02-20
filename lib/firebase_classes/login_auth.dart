@@ -28,6 +28,7 @@ class LoginAuth extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             //controller.productslist.clear();
+
             controller.loadAllProducts();
             userController.loadCurrentUserInfo();
             return HomeScreen();
