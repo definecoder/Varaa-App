@@ -25,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   bool isLoading = false;
+  bool exceptionCaught = false;
 
   Future signIn() async {
     try {
@@ -33,8 +34,19 @@ class _LoginScreenState extends State<LoginScreen> {
         password: _passwordController.text.trim(),
       );
     } on FirebaseAuthException catch (e) {
-      VxToast.show(context, msg: e.toString());
+      VxToast.show(
+        context,
+        msg: e.toString(),
+        position: VxToastPosition.center,
+        bgColor: purple1,
+        textSize: 20,
+        textColor: whiteColor,
+      );
+      print('ino aise');
       Get.to(() => WelcomeScreen());
+      setState(() {
+        exceptionCaught = true;
+      });
     }
   }
 
@@ -109,16 +121,41 @@ class _LoginScreenState extends State<LoginScreen> {
                               isLoading = true;
                             });
 
-                            print(_emailController.text +
-                                _passwordController.text);
-
-                            await signIn();
+                            if (_emailController.text.isNotEmpty &&
+                                _passwordController.text.isNotEmpty) {
+                              await signIn();
+                              setState(() {
+                                isLoading = false;
+                              });
+                              if (!exceptionCaught) Get.to(() => HomeScreen());
+                            } else {
+                              if (_emailController.text.isEmpty) {
+                                VxToast.show(
+                                  context,
+                                  msg: 'Please enter your email',
+                                  position: VxToastPosition.center,
+                                  bgColor: purple1,
+                                  textSize: 20,
+                                  textColor: whiteColor,
+                                );
+                              } else if (_passwordController.text.isEmpty) {
+                                VxToast.show(
+                                  context,
+                                  msg: 'Please enter your password',
+                                  position: VxToastPosition.center,
+                                  bgColor: purple1,
+                                  textSize: 20,
+                                  textColor: whiteColor,
+                                );
+                              }
+                            }
 
                             setState(() {
                               isLoading = false;
                             });
 
-                            Get.to(() => HomeScreen());
+                            print(_emailController.text +
+                                _passwordController.text);
                           },
                         ),
                   TextButton(

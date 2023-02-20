@@ -8,6 +8,8 @@ import 'package:vaara_app/common_widgets/app_logo.dart';
 import 'package:vaara_app/common_widgets/bg_widget.dart';
 import 'package:vaara_app/common_widgets/custom_textfield.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:vaara_app/controllers/product_controller.dart';
+import 'package:vaara_app/controllers/user_controller.dart';
 import 'package:vaara_app/screens/home_screen.dart';
 import 'package:vaara_app/screens/login_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -37,6 +39,9 @@ class _FinishSignupState extends State<FinishSignup> {
   final _phoneNumberController = TextEditingController();
   final _cityNameController = TextEditingController();
 
+  var controller = Get.find<ProductController>();
+  var userController = Get.find<UserController>();
+
   bool isLoading = false;
 
   Future signUp(context) async {
@@ -46,8 +51,16 @@ class _FinishSignupState extends State<FinishSignup> {
         password: widget.password,
       );
     } on FirebaseAuthException catch (e) {
-      VxToast.show(context, msg: e.toString());
-      Get.to(WelcomeScreen());
+      VxToast.show(
+        context,
+        msg: e.toString(),
+        position: VxToastPosition.center,
+        bgColor: purple1,
+        textSize: 14,
+        textColor: whiteColor,
+      );
+
+      Get.to(() => WelcomeScreen());
     }
   }
 
@@ -72,7 +85,14 @@ class _FinishSignupState extends State<FinishSignup> {
         'id': FirebaseAuth.instance.currentUser!.uid,
       });
     } catch (e) {
-      VxToast.show(context, msg: e.toString());
+      VxToast.show(
+        context,
+        msg: e.toString(),
+        position: VxToastPosition.center,
+        bgColor: purple1,
+        textSize: 14,
+        textColor: whiteColor,
+      );
     }
   }
 
@@ -177,8 +197,14 @@ class _FinishSignupState extends State<FinishSignup> {
                               profilePictureUploaded = true;
                             });
                           } else {
-                            VxToast.show(context,
-                                msg: 'Upload Profile Picture');
+                            VxToast.show(
+                              context,
+                              msg: 'Upload Profile Picture',
+                              position: VxToastPosition.center,
+                              bgColor: purple1,
+                              textSize: 14,
+                              textColor: whiteColor,
+                            );
                           }
 
                           print('profile pic: $profilePictureUploaded');
@@ -207,22 +233,44 @@ class _FinishSignupState extends State<FinishSignup> {
                                   addUserDetails();
                                 });
                               });
+                              await controller.loadAllProducts();
+                              await userController.loadCurrentUserInfo();
+
                               Get.to(HomeScreen());
                               setState(() {
                                 isLoading = false;
                               });
                             } catch (e) {
-                              VxToast.show(context, msg: e.toString());
+                              VxToast.show(
+                                context,
+                                msg: e.toString(),
+                                position: VxToastPosition.center,
+                                bgColor: purple1,
+                                textSize: 14,
+                                textColor: whiteColor,
+                              );
                             }
                           } else {
                             if (_userNameContoller.text.length <= 3) {
-                              VxToast.show(context,
-                                  msg:
-                                      'User name must be atleast 4 character long');
+                              VxToast.show(
+                                context,
+                                msg:
+                                    'User name must be atleast 4 character long',
+                                position: VxToastPosition.center,
+                                bgColor: purple1,
+                                textSize: 14,
+                                textColor: whiteColor,
+                              );
                             } else if (_phoneNumberController.text
                                 .contains(RegExp(r'\D'))) {
-                              VxToast.show(context,
-                                  msg: 'Please enter a valid phone number');
+                              VxToast.show(
+                                context,
+                                msg: 'Please enter a valid phone number',
+                                position: VxToastPosition.center,
+                                bgColor: purple1,
+                                textSize: 14,
+                                textColor: whiteColor,
+                              );
                             }
                           }
 
