@@ -8,6 +8,7 @@ import 'package:vaara_app/common_widgets/app_logo.dart';
 import 'package:vaara_app/common_widgets/bg_widget.dart';
 import 'package:vaara_app/common_widgets/custom_textfield.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:vaara_app/screens/home_screen.dart';
 import 'package:vaara_app/screens/login_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:vaara_app/screens/welcome_screen.dart';
@@ -171,38 +172,64 @@ class _FinishSignupState extends State<FinishSignup> {
                             isLoading = true;
                           });
 
-                          await signUp(context);
                           if (profilePicture != null) {
-                            profilePictureUploaded = true;
+                            setState(() {
+                              profilePictureUploaded = true;
+                            });
+                          } else {
+                            VxToast.show(context,
+                                msg: 'Upload Profile Picture');
                           }
 
-                          try {
-                            firebase_storage.Reference ref =
-                                firebase_storage.FirebaseStorage.instance.ref(
-                                    '/userDp/${FirebaseAuth.instance.currentUser!.uid}');
-                            firebase_storage.UploadTask uploadTask =
-                                ref.putFile(File(profilePicture!.path));
+                          print('profile pic: $profilePictureUploaded');
+                          print(
+                              'username: ${_userNameContoller.text.length > 3}');
+                          print(
+                              'phone number: ${_phoneNumberController.text.contains(RegExp(r'\D'))}');
 
-                            await Future.value(uploadTask);
-                            ref.getDownloadURL().then((String url) {
-                              setState(() {
-                                userPhotoUrl = url;
-                                addUserDetails();
+                          if (profilePictureUploaded &&
+                              _userNameContoller.text.length > 3 &&
+                              !_phoneNumberController.text
+                                  .contains(RegExp(r'\D'))) {
+                            try {
+                              await signUp(context);
+
+                              firebase_storage.Reference ref =
+                                  firebase_storage.FirebaseStorage.instance.ref(
+                                      '/userDp/${FirebaseAuth.instance.currentUser!.uid}');
+                              firebase_storage.UploadTask uploadTask =
+                                  ref.putFile(File(profilePicture!.path));
+
+                              await Future.value(uploadTask);
+                              ref.getDownloadURL().then((String url) {
+                                setState(() {
+                                  userPhotoUrl = url;
+                                  addUserDetails();
+                                });
                               });
-                            });
-                            Get.to(() => LoginScreen());
-                          } catch (e) {
-                            VxToast.show(context, msg: e.toString());
-
-                            setState(() {
-                              isLoading = false;
-                            });
+                              Get.to(HomeScreen());
+                              setState(() {
+                                isLoading = false;
+                              });
+                            } catch (e) {
+                              VxToast.show(context, msg: e.toString());
+                            }
+                          } else {
+                            if (_userNameContoller.text.length <= 3) {
+                              VxToast.show(context,
+                                  msg:
+                                      'User name must be atleast 4 character long');
+                            } else if (_phoneNumberController.text
+                                .contains(RegExp(r'\D'))) {
+                              VxToast.show(context,
+                                  msg: 'Please enter a valid phone number');
+                            }
                           }
 
                           setState(() {
                             isLoading = false;
                           });
-                          Get.to(() => LoginScreen());
+                          // Get.to(() => WelcomeScreen());
                         })
               ],
             ),

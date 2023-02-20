@@ -24,6 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  bool isLoading = false;
+
   Future signIn() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -95,16 +97,30 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ).box.rounded.padding(EdgeInsets.all(19)).make(),
                   30.heightBox,
-                  MyButton(
-                    name: 'Login',
-                    width: context.width - 70,
-                    whenPressed: () async {
-                      print(_emailController.text + _passwordController.text);
+                  isLoading
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(redColor),
+                        )
+                      : MyButton(
+                          name: 'Login',
+                          width: context.width - 70,
+                          whenPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
 
-                      await signIn();
-                      Get.to(() => HomeScreen());
-                    },
-                  ),
+                            print(_emailController.text +
+                                _passwordController.text);
+
+                            await signIn();
+
+                            setState(() {
+                              isLoading = false;
+                            });
+
+                            Get.to(() => HomeScreen());
+                          },
+                        ),
                   TextButton(
                       onPressed: () {},
                       child: const Text(

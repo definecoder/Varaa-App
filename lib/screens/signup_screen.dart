@@ -112,9 +112,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           email: _emailController.text,
                           password: _passwordController.text));
                     } else {
-                      VxToast.show(context,
-                          msg:
-                              'password doesn\'t match or you didn\'t agree to terms and condition');
+                      if (_passwordController.text.trim() !=
+                          _confirmPasswordController.text.trim()) {
+                        VxToast.show(context, msg: 'Password Did not matched!');
+                      }
+
+                      if (!_termsChecked) {
+                        VxToast.show(context,
+                            msg: 'you have to agree with terms and condition');
+                      }
                     }
                   } catch (e) {
                     VxToast.show(context, msg: e.toString());
