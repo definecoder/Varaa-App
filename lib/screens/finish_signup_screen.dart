@@ -10,11 +10,15 @@ import 'package:vaara_app/common_widgets/custom_textfield.dart';
 import 'package:vaara_app/consts/consts.dart';
 import 'package:vaara_app/screens/login_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:vaara_app/screens/welcome_screen.dart';
 
 import '../common_widgets/button.dart';
 
 class FinishSignup extends StatefulWidget {
-  const FinishSignup({super.key});
+  String email;
+  String password;
+
+  FinishSignup({super.key, required this.email, required this.password});
 
   @override
   State<FinishSignup> createState() => _FinishSignupState();
@@ -32,6 +36,20 @@ class _FinishSignupState extends State<FinishSignup> {
   final _phoneNumberController = TextEditingController();
   final _cityNameController = TextEditingController();
 
+  bool isLoading = false;
+
+  Future signUp(context) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: widget.email,
+        password: widget.password,
+      );
+    } on FirebaseAuthException catch (e) {
+      VxToast.show(context, msg: e.toString());
+      Get.to(WelcomeScreen());
+    }
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -42,15 +60,19 @@ class _FinishSignupState extends State<FinishSignup> {
   }
 
   Future addUserDetails() async {
-    print(userPhotoUrl);
-    await FirebaseFirestore.instance.collection('users').add({
-      'Username': _userNameContoller.text.trim(),
-      'Phone': _phoneNumberController.text.trim(),
-      'Email': (FirebaseAuth.instance.currentUser!).email!,
-      'City': _cityNameController.text.trim(),
-      'PhotoUrl': userPhotoUrl as String,
-      'id': FirebaseAuth.instance.currentUser!.uid,
-    });
+    // print(userPhotoUrl);
+    try {
+      await FirebaseFirestore.instance.collection('users').add({
+        'Username': _userNameContoller.text.trim(),
+        'Phone': _phoneNumberController.text.trim(),
+        'Email': (FirebaseAuth.instance.currentUser!).email!,
+        'City': _cityNameController.text.trim(),
+        'PhotoUrl': userPhotoUrl as String,
+        'id': FirebaseAuth.instance.currentUser!.uid,
+      });
+    } catch (e) {
+      VxToast.show(context, msg: e.toString());
+    }
   }
 
   @override
@@ -137,31 +159,51 @@ class _FinishSignupState extends State<FinishSignup> {
                   ],
                 ).box.rounded.padding(EdgeInsets.all(19)).make(),
                 20.heightBox,
-                MyButton(
-                    name: 'Finish Sign up',
-                    width: context.width - 70,
-                    whenPressed: () async {
-                      setState(() async {
-                        if (profilePicture != null)
-                          profilePictureUploaded = true;
-                        firebase_storage.Reference ref = firebase_storage
-                            .FirebaseStorage.instance
-                            .ref('/userDp/' +
-                                FirebaseAuth.instance.currentUser!.uid);
-                        firebase_storage.UploadTask uploadTask =
-                            ref.putFile(File(profilePicture!.path));
-
-                        await Future.value(uploadTask);
-                        ref.getDownloadURL().then((String url) {
+                isLoading
+                    ? CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(redColor),
+                      )
+                    : MyButton(
+                        name: 'Finish Sign up',
+                        width: context.width - 70,
+                        whenPressed: () async {
                           setState(() {
-                            userPhotoUrl = url;
-                            addUserDetails();
+                            isLoading = true;
                           });
-                        });
 
-                        Get.to(() => LoginScreen());
-                      });
-                    })
+                          await signUp(context);
+                          if (profilePicture != null) {
+                            profilePictureUploaded = true;
+                          }
+
+                          try {
+                            firebase_storage.Reference ref =
+                                firebase_storage.FirebaseStorage.instance.ref(
+                                    '/userDp/${FirebaseAuth.instance.currentUser!.uid}');
+                            firebase_storage.UploadTask uploadTask =
+                                ref.putFile(File(profilePicture!.path));
+
+                            await Future.value(uploadTask);
+                            ref.getDownloadURL().then((String url) {
+                              setState(() {
+                                userPhotoUrl = url;
+                                addUserDetails();
+                              });
+                            });
+                            Get.to(() => LoginScreen());
+                          } catch (e) {
+                            VxToast.show(context, msg: e.toString());
+
+                            setState(() {
+                              isLoading = false;
+                            });
+                          }
+
+                          setState(() {
+                            isLoading = false;
+                          });
+                          Get.to(() => LoginScreen());
+                        })
               ],
             ),
           ),

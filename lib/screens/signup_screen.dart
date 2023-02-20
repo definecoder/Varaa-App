@@ -32,21 +32,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
-  Future signUp(context) async {
-    try {
-      if (_passwordController.text.trim() ==
-          _confirmPasswordController.text.trim()) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim(),
-        );
-      }
-    } on FirebaseAuthException catch (e) {
-      VxToast.show(context, msg: e.toString());
-      Get.to(WelcomeScreen());
-    }
-  }
-
   @override
   void dispose() {
     // TODO: implement dispose
@@ -119,8 +104,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
               MyButton(
                 name: 'Create Account',
                 whenPressed: () {
-                  signUp(context);
-                  Get.to(() => const FinishSignup());
+                  try {
+                    if (_passwordController.text.trim() ==
+                            _confirmPasswordController.text.trim() &&
+                        _termsChecked) {
+                      Get.to(() => FinishSignup(
+                          email: _emailController.text,
+                          password: _passwordController.text));
+                    } else {
+                      VxToast.show(context,
+                          msg:
+                              'password doesn\'t match or you didn\'t agree to terms and condition');
+                    }
+                  } catch (e) {
+                    VxToast.show(context, msg: e.toString());
+                  }
                 },
                 width: context.width - 70,
               ),

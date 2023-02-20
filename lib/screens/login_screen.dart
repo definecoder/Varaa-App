@@ -8,6 +8,7 @@ import 'package:vaara_app/common_widgets/custom_textfield.dart';
 import 'package:vaara_app/consts/consts.dart';
 import 'package:vaara_app/firebase_classes/login_auth.dart';
 import 'package:vaara_app/screens/home_screen.dart';
+import 'package:vaara_app/screens/welcome_screen.dart';
 
 import '../common_widgets/button3.dart';
 import '../controllers/product_controller.dart';
@@ -24,10 +25,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      VxToast.show(context, msg: e.toString());
+      Get.to(() => WelcomeScreen());
+    }
   }
 
   @override
@@ -92,10 +98,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   MyButton(
                     name: 'Login',
                     width: context.width - 70,
-                    whenPressed: () {
+                    whenPressed: () async {
                       print(_emailController.text + _passwordController.text);
-                      signIn();
-                      Get.to(() => LoginAuth());
+
+                      await signIn();
+                      Get.to(() => HomeScreen());
                     },
                   ),
                   TextButton(
