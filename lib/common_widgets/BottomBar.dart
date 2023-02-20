@@ -44,7 +44,7 @@ class BottomBar extends StatelessWidget {
             icon: const Icon(Icons.history),
             color: curScene == 2 ? Colors.lime : Colors.white,
             onPressed: () async {
-              print(email);
+              //print(email);
 
               if (curScene != 2) {
                 List<Product> userProducts = [];
@@ -62,17 +62,19 @@ class BottomBar extends StatelessWidget {
                   if (documentSnapshot['uid'] == user.uid) {
                     userProducts.add(
                       Product(
-                        location: documentSnapshot['city'],
-                        title: documentSnapshot['title'],
-                        frequency: documentSnapshot['frequency'],
-                        price: documentSnapshot['rent'],
-                        address: documentSnapshot['address'],
-                        condition: documentSnapshot['condition'],
-                        description: documentSnapshot['description'],
-                        imgLocation: documentSnapshot['imageUrl'],
-                        isLend: documentSnapshot['isLend'],
-                        status: documentSnapshot['status'],
-                      ),
+                          location: documentSnapshot['city'],
+                          title: documentSnapshot['title'],
+                          frequency: documentSnapshot['frequency'],
+                          price: documentSnapshot['rent'],
+                          address: documentSnapshot['address'],
+                          condition: documentSnapshot['condition'],
+                          description: documentSnapshot['description'],
+                          imgLocation: documentSnapshot['imageUrl'],
+                          isLend: documentSnapshot['isLend'],
+                          status: documentSnapshot['status'],
+                          isHome: false,
+                          id: documentSnapshot['id'],
+                          productOwner: documentSnapshot['uid']),
                     );
                   }
 

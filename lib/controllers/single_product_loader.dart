@@ -3,10 +3,10 @@ import 'package:vaara_app/consts/consts.dart';
 
 import '../data_classes/product.dart';
 
-class ProductController extends GetxController {
-  List<Product> productslist = [];
+class SingleProductLoader extends GetxController {
+  Product? curProduct;
 
-  loadAllProducts() async {
+  loadProductById(String product_id) async {
     // productslist = [];
     //productslist.clear();
     CollectionReference collectionRef =
@@ -17,8 +17,8 @@ class ProductController extends GetxController {
       // access the document fields using documentSnapshot.data()
       // print(documentSnapshot['uid']);
       // print('1');
-      productslist.add(
-        Product(
+      if (documentSnapshot['id'] == product_id) {
+        curProduct = Product(
             location: documentSnapshot['city'],
             title: documentSnapshot['title'],
             frequency: documentSnapshot['frequency'],
@@ -30,8 +30,8 @@ class ProductController extends GetxController {
             isLend: documentSnapshot['isLend'],
             status: documentSnapshot['status'],
             id: documentSnapshot['id'],
-            productOwner: documentSnapshot['uid']),
-      );
+            productOwner: documentSnapshot['uid']);
+      }
 
       // userProducts.add(Product(location: 'location', title: 'title', frequency: 'frequency', price: 'price'));
     }

@@ -48,6 +48,13 @@ class _PostNewProduct2State extends State<PostNewProduct2> {
   ];
   int tag2 = 0;
 
+  bool isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,21 +160,35 @@ class _PostNewProduct2State extends State<PostNewProduct2> {
                           //   // userProducts.add(Product(location: 'location', title: 'title', frequency: 'frequency', price: 'price'));
                           // }
 
-                          await firebaseController.storeProductData(
-                            title: widget.productName,
-                            address: addressController.text,
-                            city: cityController.text,
-                            condition: widget.condition,
-                            description: widget.description,
-                            frequency: options[tag2],
-                            imageUrl: widget.imageUrl,
-                            rent: rentController.text,
-                            user: user,
-                            status: 'Available',
-                            isLend: true,
-                          );
+                          if (isNumeric(rentController.text) == false) {
+                            context.showToast(
+                                msg: "IVALID RENT ~ ENTER A VALID NUMBER",
+                                position: VxToastPosition.bottom);
+                          } else if (addressController.text.length == 0) {
+                            context.showToast(
+                                msg: "ADD ADDRESS PLEASE",
+                                position: VxToastPosition.bottom);
+                          } else if (cityController.text.length == 0) {
+                            context.showToast(
+                                msg: "ADD CITY NAME PLEASE",
+                                position: VxToastPosition.bottom);
+                          } else {
+                            await firebaseController.storeProductData(
+                              title: widget.productName,
+                              address: addressController.text,
+                              city: cityController.text,
+                              condition: widget.condition,
+                              description: widget.description,
+                              frequency: options[tag2],
+                              imageUrl: widget.imageUrl,
+                              rent: rentController.text,
+                              user: user,
+                              status: 'Available',
+                              isLend: true,
+                            );
 
-                          Get.to(HomeScreen());
+                            Get.to(HomeScreen());
+                          }
                         }),
                     20.widthBox
                   ]),

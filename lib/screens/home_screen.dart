@@ -92,6 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       widget.controller.productslist[index].imgLocation,
                   price: widget.controller.productslist[index].price,
                   isHome: widget.controller.productslist[index].isHome,
+                  productId: widget.controller.productslist[index].id,
                 );
               })),
             )
