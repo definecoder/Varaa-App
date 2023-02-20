@@ -37,6 +37,7 @@ dependencies:
   expandable_text: 2.3.0
   chips_choice: ^3.0.0
   image_picker: ^0.8.5+3
+  flutter_phone_direct_caller: ^2.1.1
 
 
   # The following adds the Cupertino Icons font to your application.

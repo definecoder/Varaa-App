@@ -213,8 +213,8 @@ class ProfileScreen extends StatelessWidget {
                   Profile_option(
                     bodyText: "Logout",
                     usedIcon: Icons.exit_to_app,
-                    onTapped: () {
-                      FirebaseAuth.instance.signOut();
+                    onTapped: () async {
+                      await FirebaseAuth.instance.signOut();
                       Get.to(LoginAuth());
                       //print("hi");
                     },
