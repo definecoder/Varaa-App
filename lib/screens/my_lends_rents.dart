@@ -137,6 +137,8 @@ class MyLendsRents extends StatelessWidget {
                           title: userProducts[index].title,
                           imgLocation: userProducts[index].imgLocation,
                           price: userProducts[index].price,
+                          productId: userProducts[index].id,
+                          isHome: false,
                         );
                       })),
               ),
