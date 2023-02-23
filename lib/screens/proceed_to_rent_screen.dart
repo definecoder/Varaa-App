@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:vaara_app/common_widgets/Button_bold_big.dart';
 import 'package:vaara_app/common_widgets/app_logo.dart';
 import 'package:vaara_app/common_widgets/button.dart';
@@ -128,7 +129,14 @@ class ProceedRentScreen extends StatelessWidget {
                 ),
               ),
               BigButton(
-                  name: "CALL NOW", height: 50, width: 180, font_size: 20),
+                  name: "CALL NOW",
+                  height: 50,
+                  width: 180,
+                  font_size: 20,
+                  whenPressed: () async {
+                    FlutterPhoneDirectCaller.callNumber(
+                        productOwnerLoader.currentUser.phone_number.toString());
+                  }),
               Container(
                 padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
                 child: "or"

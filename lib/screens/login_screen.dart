@@ -6,8 +6,11 @@ import 'package:vaara_app/common_widgets/bg_widget.dart';
 import 'package:vaara_app/common_widgets/button.dart';
 import 'package:vaara_app/common_widgets/custom_textfield.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:vaara_app/controllers/user_controller.dart';
+import 'package:vaara_app/data_classes/product.dart';
 import 'package:vaara_app/firebase_classes/login_auth.dart';
 import 'package:vaara_app/screens/home_screen.dart';
+import 'package:vaara_app/screens/welcome_screen.dart';
 
 import '../common_widgets/button3.dart';
 import '../controllers/product_controller.dart';
@@ -23,11 +26,33 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  var controller = Get.find<ProductController>();
+  var userController = Get.find<UserController>();
+
+  bool isLoading = false;
+  bool exceptionCaught = false;
+
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      VxToast.show(
+        context,
+        msg: e.toString(),
+        position: VxToastPosition.center,
+        bgColor: purple1,
+        textSize: 20,
+        textColor: whiteColor,
+      );
+      print('ino aise');
+      Get.to(() => WelcomeScreen());
+      setState(() {
+        exceptionCaught = true;
+      });
+    }
   }
 
   @override
@@ -89,15 +114,60 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ).box.rounded.padding(EdgeInsets.all(19)).make(),
                   30.heightBox,
-                  MyButton(
-                    name: 'Login',
-                    width: context.width - 70,
-                    whenPressed: () {
-                      print(_emailController.text + _passwordController.text);
-                      signIn();
-                      Get.to(() => LoginAuth());
-                    },
-                  ),
+                  isLoading
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(redColor),
+                        )
+                      : MyButton(
+                          name: 'Login',
+                          width: context.width - 70,
+                          whenPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+
+                            if (_emailController.text.isNotEmpty &&
+                                _passwordController.text.isNotEmpty) {
+                              await signIn();
+
+                              if (!exceptionCaught) {
+                                await controller.loadAllProducts();
+                                await userController.loadCurrentUserInfo();
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                Get.to(() => LoginAuth());
+                              }
+                            } else {
+                              if (_emailController.text.isEmpty) {
+                                VxToast.show(
+                                  context,
+                                  msg: 'Please enter your email',
+                                  position: VxToastPosition.center,
+                                  bgColor: purple1,
+                                  textSize: 20,
+                                  textColor: whiteColor,
+                                );
+                              } else if (_passwordController.text.isEmpty) {
+                                VxToast.show(
+                                  context,
+                                  msg: 'Please enter your password',
+                                  position: VxToastPosition.center,
+                                  bgColor: purple1,
+                                  textSize: 20,
+                                  textColor: whiteColor,
+                                );
+                              }
+                            }
+
+                            setState(() {
+                              isLoading = false;
+                            });
+
+                            print(_emailController.text +
+                                _passwordController.text);
+                          },
+                        ),
                   TextButton(
                       onPressed: () {},
                       child: const Text(
