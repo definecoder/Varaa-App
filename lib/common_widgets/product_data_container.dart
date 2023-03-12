@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:vaara_app/consts/consts.dart';
 import 'package:flutter/material.dart';
+import 'package:vaara_app/controllers/find_user_controller.dart';
 import 'package:vaara_app/screens/product_info_screen.dart';
 
+import '../controllers/single_product_loader.dart';
 import 'circuler_image.dart';
 
 class ProductData extends StatelessWidget {
@@ -16,6 +20,7 @@ class ProductData extends StatelessWidget {
   final String imgLocation;
   final String price;
   final bool isHome;
+  final String productId;
 
   ProductData(
       {required this.isLend,
@@ -25,13 +30,27 @@ class ProductData extends StatelessWidget {
       required this.title,
       required this.imgLocation,
       required this.price,
-      this.isHome = false});
+      this.isHome = false,
+      required this.productId});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Get.to(ProductInfoScreen());
+      onTap: () async {
+        var productLoader = Get.find<SingleProductLoader>();
+        var productOwnerLoader = Get.find<FindUserController>();
+        await productLoader.loadProductById(productId).then((hi) async {
+          //print(productLoader.curProduct!.title);
+          await productOwnerLoader
+              .loadUserInfo(productLoader.curProduct!.productOwner)
+              .then((bye) {
+            Get.to(ProductInfoScreen(
+              pid: productId,
+              productLoader: productLoader,
+              productOwnerLoader: productOwnerLoader,
+            ));
+          });
+        });
       },
       child: Container(
         width: double.infinity,
@@ -50,7 +69,7 @@ class ProductData extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: Image(
-                      image: AssetImage(imgLocation),
+                      image: NetworkImage(imgLocation),
                       width: context.width * 0.33,
                       height: context.width * 0.33,
                       fit: BoxFit.fill,
@@ -99,14 +118,17 @@ class ProductData extends StatelessWidget {
                         children: [
                           Icon(Icons.location_on, size: 17),
                           1.widthBox,
-                          location.text.size(14).make(),
+                          Container(
+                            width: context.width * 0.22,
+                            child: location.text.size(14).make(),
+                          ),
                           Expanded(child: Container()),
                           ("৳ " + price + " ")
                               .text
                               .size(14)
                               .color(purple1)
                               .make(),
-                          ("per " + frequency).text.size(14).make(),
+                          (frequency).text.size(14).make(),
                           5.widthBox,
                         ],
                       )

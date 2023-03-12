@@ -2,11 +2,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:vaara_app/common_widgets/app_logo.dart';
 import 'package:vaara_app/common_widgets/search_bar.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:vaara_app/controllers/product_controller.dart';
+import 'package:vaara_app/controllers/user_controller.dart';
 
 import '../common_widgets/product_data_container.dart';
+import '../data_classes/product.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  var controller;
+
+  HomeScreen() {
+    controller = Get.find<ProductController>();
+  }
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -16,9 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final user = FirebaseAuth.instance.currentUser!;
 
   var swiperlist = [
-    'assets/nature_bg.png',
-    'assets/cycle_image.png',
-    'assets/camera_image.png',
+    'assets/daraz.jpeg',
+    'assets/gp.jpeg',
+    'assets/rokomari.jpeg',
   ];
 
   @override
@@ -53,35 +60,67 @@ class _HomeScreenState extends State<HomeScreen> {
               enlargeCenterPage: true,
             ),
             //20.heightBox,
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(10, (index) {
-                  return Container(
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(5),
-                    decoration: const BoxDecoration(
-                        color: Color.fromARGB(129, 191, 182, 190),
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: "Category $index".text.size(13).make(),
-                  );
-                }),
-              ),
+
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   child: Row(
+            //     children: List.generate(10, (index) {
+            //       return Container(
+            //         margin: EdgeInsets.all(10),
+            //         padding: EdgeInsets.all(5),
+            //         decoration: const BoxDecoration(
+            //             color: Color.fromARGB(129, 191, 182, 190),
+            //             borderRadius: BorderRadius.all(Radius.circular(8))),
+            //         child: "Category $index".text.size(13).make(),
+            //       );
+            //     }),
+            //   ),
+            // ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.arrow_downward,
+                  color: purple1,
+                ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Text(
+                    'Trending',
+                    style: TextStyle(
+                      color: purple1,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 5),
+                Icon(
+                  Icons.arrow_downward,
+                  color: purple1,
+                ),
+              ],
             ),
+
             10.heightBox,
             Expanded(
               //height: 310,
               child: ListView(
-                  children: List.generate(5, (index) {
+                  children: List.generate(widget.controller.productslist.length,
+                      (index) {
+                // i'll generate
                 return ProductData(
-                  frequency: "month",
-                  isLend: true,
-                  location: "Chattogram",
-                  status: "Pending",
-                  title: "CANON 700D",
-                  imgLocation: "./assets/camera_image.png",
-                  price: 700.toString(),
-                  isHome: true,
+                  frequency: widget.controller.productslist[index].frequency,
+                  isLend: widget.controller.productslist[index].isLend,
+                  location: widget.controller.productslist[index].location,
+                  status: widget.controller.productslist[index].status,
+                  title: widget.controller.productslist[index].title,
+                  imgLocation:
+                      widget.controller.productslist[index].imgLocation,
+                  price: widget.controller.productslist[index].price,
+                  isHome: widget.controller.productslist[index].isHome,
+                  productId: widget.controller.productslist[index].id,
                 );
               })),
             )

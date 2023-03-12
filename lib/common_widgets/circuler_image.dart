@@ -3,7 +3,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 Widget CirculerImage(String fileName, double radius) {
   return CircleAvatar(
-    backgroundImage: AssetImage("assets/dp1.png"),
+    backgroundImage: NetworkImage(fileName),
     radius: radius,
   );
 }

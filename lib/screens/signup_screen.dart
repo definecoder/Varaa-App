@@ -9,9 +9,11 @@ import 'package:get/get.dart';
 import 'package:vaara_app/common_widgets/button.dart';
 import 'package:vaara_app/common_widgets/custom_textfield.dart';
 import 'package:vaara_app/screens/finish_signup_screen.dart';
+import 'package:vaara_app/screens/welcome_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vaara_app/consts/consts.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -29,16 +31,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-
-  Future signUp() async {
-    if (_passwordController.text.trim() ==
-        _confirmPasswordController.text.trim()) {
-      FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-    }
-  }
 
   @override
   void dispose() {
@@ -112,8 +104,69 @@ class _SignUpScreenState extends State<SignUpScreen> {
               MyButton(
                 name: 'Create Account',
                 whenPressed: () {
-                  signUp();
-                  Get.to(() => const FinishSignup());
+                  try {
+                    if (_passwordController.text.trim() ==
+                            _confirmPasswordController.text.trim() &&
+                        _termsChecked &&
+                        _passwordController.text.isNotEmpty &&
+                        _emailController.text.isNotEmpty) {
+                      Get.to(() => FinishSignup(
+                          email: _emailController.text,
+                          password: _passwordController.text));
+                    } else {
+                      if (_emailController.text.isEmpty) {
+                        VxToast.show(
+                          context,
+                          msg: 'Please enter email',
+                          position: VxToastPosition.center,
+                          bgColor: purple1,
+                          textSize: 20,
+                          textColor: whiteColor,
+                        );
+                      }
+                      if (_passwordController.text.isEmpty) {
+                        VxToast.show(
+                          context,
+                          msg: 'Please enter password',
+                          position: VxToastPosition.center,
+                          bgColor: purple1,
+                          textSize: 20,
+                          textColor: whiteColor,
+                        );
+                      }
+                      if (_passwordController.text.trim() !=
+                          _confirmPasswordController.text.trim()) {
+                        VxToast.show(
+                          context,
+                          msg: 'Password Did not matched!',
+                          position: VxToastPosition.center,
+                          bgColor: purple1,
+                          textSize: 20,
+                          textColor: whiteColor,
+                        );
+                      }
+
+                      if (!_termsChecked) {
+                        VxToast.show(
+                          context,
+                          msg: 'you have to agree with terms and condition',
+                          position: VxToastPosition.center,
+                          bgColor: purple1,
+                          textSize: 20,
+                          textColor: whiteColor,
+                        );
+                      }
+                    }
+                  } catch (e) {
+                    VxToast.show(
+                      context,
+                      msg: e.toString(),
+                      position: VxToastPosition.center,
+                      bgColor: purple1,
+                      textSize: 20,
+                      textColor: whiteColor,
+                    );
+                  }
                 },
                 width: context.width - 70,
               ),

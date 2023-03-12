@@ -1,13 +1,13 @@
-class User {
-  String name, email, password, username, phone_number;
-  String image;
+class UserData {
+  String email, username, phone_number;
+  String imageUrl, id, city;
 
-  User({
-    required this.name,
+  UserData({
+    required this.id,
     required this.email,
-    this.image = './aseets/useraltfill.png',
-    required this.password,
+    required this.imageUrl,
     required this.phone_number,
     required this.username,
+    required this.city,
   });
 }

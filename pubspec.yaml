@@ -37,6 +37,7 @@ dependencies:
   expandable_text: 2.3.0
   chips_choice: ^3.0.0
   image_picker: ^0.8.5+3
+  flutter_phone_direct_caller: ^2.1.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -58,6 +59,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.11.0"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -101,3 +103,22 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/appLogo.png" 
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/appLogo.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/appLogo.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/appLogo.png"
