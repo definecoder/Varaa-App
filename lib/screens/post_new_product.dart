@@ -126,7 +126,9 @@ class _PostNewProductState extends State<PostNewProduct> {
                     name: "Upload image",
                     whenPressed: () async {
                       productImage = await productImagePicker.pickImage(
-                          source: ImageSource.gallery);
+                        source: ImageSource.gallery,
+                        imageQuality: fixedImageQuality,
+                      );
                       //print("hi");
                       setState(() {
                         if (productImage != null) productImageUploaded = true;

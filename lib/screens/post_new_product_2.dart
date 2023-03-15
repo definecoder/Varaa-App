@@ -48,6 +48,8 @@ class _PostNewProduct2State extends State<PostNewProduct2> {
   ];
   int tag2 = 0;
 
+  var clicked = false;
+
   bool isNumeric(String s) {
     if (s == null) {
       return false;
@@ -138,58 +140,67 @@ class _PostNewProduct2State extends State<PostNewProduct2> {
                   ),
                   Expanded(child: Container()),
                   Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    NextButton(
-                        height: 40,
-                        width: 135,
-                        name: "POST RENT",
-                        whenPressed: () async {
-                          // do the firebase stuff!
+                    !clicked
+                        ? NextButton(
+                            height: 40,
+                            width: 135,
+                            name: "POST RENT",
+                            whenPressed: () async {
+                              setState(() {
+                                clicked = true;
+                              });
 
-                          // print(user.displayName);
+                              // do the firebase stuff!
 
-                          // CollectionReference collectionRef =
-                          //     FirebaseFirestore.instance.collection('products');
-                          // QuerySnapshot querySnapshot =
-                          //     await collectionRef.get();
+                              // print(user.displayName);
 
-                          // for (QueryDocumentSnapshot documentSnapshot
-                          //     in querySnapshot.docs) {
-                          //   // access the document fields using documentSnapshot.data()
-                          //   print(documentSnapshot['uid']);
-                          //   print('1');
-                          //   // userProducts.add(Product(location: 'location', title: 'title', frequency: 'frequency', price: 'price'));
-                          // }
+                              // CollectionReference collectionRef =
+                              //     FirebaseFirestore.instance.collection('products');
+                              // QuerySnapshot querySnapshot =
+                              //     await collectionRef.get();
 
-                          if (isNumeric(rentController.text) == false) {
-                            context.showToast(
-                                msg: "IVALID RENT ~ ENTER A VALID NUMBER",
-                                position: VxToastPosition.bottom);
-                          } else if (addressController.text.length == 0) {
-                            context.showToast(
-                                msg: "ADD ADDRESS PLEASE",
-                                position: VxToastPosition.bottom);
-                          } else if (cityController.text.length == 0) {
-                            context.showToast(
-                                msg: "ADD CITY NAME PLEASE",
-                                position: VxToastPosition.bottom);
-                          } else {
-                            await firebaseController.storeProductData(
-                              title: widget.productName,
-                              address: addressController.text,
-                              city: cityController.text,
-                              condition: widget.condition,
-                              description: widget.description,
-                              frequency: options[tag2],
-                              imageUrl: widget.imageUrl,
-                              rent: rentController.text,
-                              user: user,
-                              status: 'Available',
-                              isLend: true,
-                            );
+                              // for (QueryDocumentSnapshot documentSnapshot
+                              //     in querySnapshot.docs) {
+                              //   // access the document fields using documentSnapshot.data()
+                              //   print(documentSnapshot['uid']);
+                              //   print('1');
+                              //   // userProducts.add(Product(location: 'location', title: 'title', frequency: 'frequency', price: 'price'));
+                              // }
 
-                            Get.to(HomeScreen());
-                          }
-                        }),
+                              if (isNumeric(rentController.text) == false) {
+                                context.showToast(
+                                    msg: "IVALID RENT ~ ENTER A VALID NUMBER",
+                                    position: VxToastPosition.bottom);
+                              } else if (addressController.text.length == 0) {
+                                context.showToast(
+                                    msg: "ADD ADDRESS PLEASE",
+                                    position: VxToastPosition.bottom);
+                              } else if (cityController.text.length == 0) {
+                                context.showToast(
+                                    msg: "ADD CITY NAME PLEASE",
+                                    position: VxToastPosition.bottom);
+                              } else {
+                                await firebaseController.storeProductData(
+                                  title: widget.productName,
+                                  address: addressController.text,
+                                  city: cityController.text,
+                                  condition: widget.condition,
+                                  description: widget.description,
+                                  frequency: options[tag2],
+                                  imageUrl: widget.imageUrl,
+                                  rent: rentController.text,
+                                  user: user,
+                                  status: 'Available',
+                                  isLend: true,
+                                );
+
+                                Get.to(HomeScreen());
+                                clicked = false;
+                              }
+                            })
+                        : CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(redColor),
+                          ),
                     20.widthBox
                   ]),
                   20.heightBox

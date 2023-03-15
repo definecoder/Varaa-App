@@ -27,23 +27,11 @@ class LoginAuth extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return FutureBuilder(
-              future: Future.wait(
-                List<Future>.from([
-                  controller.loadAllProducts(),
-                  userController.loadCurrentUserInfo(),
-                ]),
-              ),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return HomeScreen();
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            );
+            //controller.productslist.clear();
+
+            controller.loadAllProducts();
+            userController.loadCurrentUserInfo();
+            return HomeScreen();
           } else {
             return WelcomeScreen();
           }
