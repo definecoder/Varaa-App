@@ -171,14 +171,23 @@ class _PostNewProduct2State extends State<PostNewProduct2> {
                                 context.showToast(
                                     msg: "IVALID RENT ~ ENTER A VALID NUMBER",
                                     position: VxToastPosition.bottom);
+                                setState(() {
+                                  clicked = false;
+                                });
                               } else if (addressController.text.length == 0) {
                                 context.showToast(
                                     msg: "ADD ADDRESS PLEASE",
                                     position: VxToastPosition.bottom);
+                                setState(() {
+                                  clicked = false;
+                                });
                               } else if (cityController.text.length == 0) {
                                 context.showToast(
                                     msg: "ADD CITY NAME PLEASE",
                                     position: VxToastPosition.bottom);
+                                setState(() {
+                                  clicked = false;
+                                });
                               } else {
                                 await firebaseController.storeProductData(
                                   title: widget.productName,
@@ -195,7 +204,9 @@ class _PostNewProduct2State extends State<PostNewProduct2> {
                                 );
 
                                 Get.to(HomeScreen());
-                                clicked = false;
+                                setState(() {
+                                  clicked = false;
+                                });
                               }
                             })
                         : CircularProgressIndicator(
