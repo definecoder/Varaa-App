@@ -85,8 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: purple1,
                 ),
                 Container(
-                  padding: EdgeInsets.all(5),
-                  child: Text(
+                  padding: const EdgeInsets.all(5),
+                  child: const Text(
                     'Trending',
                     style: TextStyle(
                       color: purple1,
@@ -95,8 +95,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                SizedBox(width: 5),
-                Icon(
+                const SizedBox(width: 5),
+                const Icon(
                   Icons.arrow_downward,
                   color: purple1,
                 ),

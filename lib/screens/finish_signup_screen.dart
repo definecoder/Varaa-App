@@ -132,7 +132,8 @@ class _FinishSignupState extends State<FinishSignup> {
                     ? IconButton(
                         onPressed: () async {
                           profilePicture = await profilePicturePicker.pickImage(
-                              source: ImageSource.gallery);
+                              source: ImageSource.gallery,
+                              imageQuality: fixedImageQuality);
                           setState(() {
                             if (profilePicture != null)
                               profilePictureUploaded = true;
